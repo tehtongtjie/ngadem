@@ -1,125 +1,127 @@
-@extends('layouts.app') {{-- Pastikan Anda memiliki layout admin yang benar dan sudah mengimpor Tailwind CSS --}}
+@extends('layouts.Admin.app') {{-- Pastikan Anda memiliki layout admin yang benar yang sudah mengimpor Bootstrap 4 dan SB Admin 2 assets --}}
 
 @section('title', 'Tambah Teknisi Baru')
 
 @section('content')
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6">Tambah Teknisi Baru</h1>
 
-        <div class="bg-white shadow-md rounded-lg overflow-hidden mb-8">
-            <div class="px-6 py-4 bg-gray-100 border-b border-gray-200">
-                <h6 class="text-lg font-semibold text-gray-800">Form Tambah Teknisi</h6>
-            </div>
-            <div class="p-6">
-                @if ($errors->any())
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                        <strong class="font-bold">Oops!</strong>
-                        <span class="block sm:inline">Ada beberapa masalah dengan input Anda.</span>
-                        <ul class="mt-3 list-disc list-inside text-sm">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 style="font-weight: 700;" class="h3 mb-0 text-gray-800">Tambah Teknisi Baru</h1>
+        <a href="{{ route('admin.teknisi.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-arrow-left fa-sm text-white-50"></i> Kembali ke Daftar Teknisi
+        </a>
+    </div>
 
-                <form action="{{ route('admin.teknisi.store') }}" method="POST">
-                    @csrf
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Form Tambah Teknisi</h6>
+        </div>
+        <div class="card-body">
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Oops!</strong> Ada beberapa masalah dengan input Anda.
+                    <ul class="mb-0 mt-2">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
 
-                    <div class="mb-4">
-                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nama Teknisi:</label>
-                        <input type="text" id="name" name="name"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('name') border-red-500 @enderror"
-                            value="{{ old('name') }}" required>
-                        @error('name')
-                            <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+            <form action="{{ route('admin.teknisi.store') }}" method="POST">
+                @csrf
 
-                    <div class="mb-4">
-                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
-                        <input type="email" id="email" name="email"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('email') border-red-500 @enderror"
-                            value="{{ old('email') }}" required>
-                        @error('email')
-                            <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                <div class="form-group">
+                    <label for="name">Nama Teknisi:</label>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                        name="name" value="{{ old('name') }}" required>
+                    @error('name')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
-                    <div class="mb-4">
-                        <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
-                        <input type="password" id="password" name="password"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline @error('password') border-red-500 @enderror"
-                            required autocomplete="new-password">
-                        @error('password')
-                            <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                        name="email" value="{{ old('email') }}" required>
+                    @error('email')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
-                    <div class="mb-6">
-                        <label for="password_confirmation" class="block text-gray-700 text-sm font-bold mb-2">Konfirmasi
-                            Password:</label>
-                        <input type="password" id="password_confirmation" name="password_confirmation"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            required autocomplete="new-password">
-                    </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                        name="password" required autocomplete="new-password">
+                    @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
-                    {{-- Tambahan field detail teknisi --}}
-                    <div class="mb-4">
-                        <label for="area_layanan" class="block text-gray-700 text-sm font-bold mb-2">Area Layanan:</label>
-                        <input type="text" id="area_layanan" name="area_layanan"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('area_layanan') border-red-500 @enderror"
-                            value="{{ old('area_layanan') }}">
-                        @error('area_layanan')
-                            <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                <div class="form-group">
+                    <label for="password_confirmation">Konfirmasi Password:</label>
+                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
+                        required autocomplete="new-password">
+                </div>
 
-                    <div class="mb-4">
-                        <label for="spesialisasi" class="block text-gray-700 text-sm font-bold mb-2">Spesialisasi:</label>
-                        <input type="text" id="spesialisasi" name="spesialisasi"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('spesialisasi') border-red-500 @enderror"
-                            value="{{ old('spesialisasi') }}">
-                        @error('spesialisasi')
-                            <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                <hr class="sidebar-divider my-4"> {{-- Separator for technician-specific fields --}}
 
-                    <div class="mb-6">
-                        <label for="deskripsi_singkat" class="block text-gray-700 text-sm font-bold mb-2">Deskripsi
-                            Singkat:</label>
-                        <textarea id="deskripsi_singkat" name="deskripsi_singkat" rows="3"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('deskripsi_singkat') border-red-500 @enderror">{{ old('deskripsi_singkat') }}</textarea>
-                        @error('deskripsi_singkat')
-                            <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                <h6 class="h5 mb-3 text-gray-800">Detail Teknisi</h6>
 
-                    <div class="flex items-center justify-between">
-                        <button type="submit"
-                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-plus-circle mr-2">
-                                <circle cx="12" cy="12" r="10" />
-                                <line x1="12" x2="12" y1="8" y2="16" />
-                                <line x1="8" x2="16" y1="12" y2="12" />
-                            </svg>
-                            Simpan Teknisi
-                        </button>
-                        <a href="{{ route('admin.teknisi.index') }}"
-                            class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-arrow-left mr-2">
-                                <path d="m12 19-7-7 7-7" />
-                                <path d="M19 12H5" />
-                            </svg>
-                            Batal
-                        </a>
-                    </div>
-                </form>
-            </div>
+                <div class="form-group">
+                    <label for="area_layanan">Area Layanan:</label>
+                    <input type="text" class="form-control @error('area_layanan') is-invalid @enderror" id="area_layanan"
+                        name="area_layanan" value="{{ old('area_layanan') }}">
+                    @error('area_layanan')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="spesialisasi">Spesialisasi:</label>
+                    <input type="text" class="form-control @error('spesialisasi') is-invalid @enderror" id="spesialisasi"
+                        name="spesialisasi" value="{{ old('spesialisasi') }}">
+                    @error('spesialisasi')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="deskripsi_singkat">Deskripsi Singkat:</label>
+                    <textarea class="form-control @error('deskripsi_singkat') is-invalid @enderror" id="deskripsi_singkat"
+                        name="deskripsi_singkat" rows="3">{{ old('deskripsi_singkat') }}</textarea>
+                    @error('deskripsi_singkat')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-icon-split mt-4">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus-circle"></i>
+                    </span>
+                    <span class="text">Simpan Teknisi</span>
+                </button>
+                <a href="{{ route('admin.teknisi.index') }}" class="btn btn-secondary btn-icon-split mt-4 ml-2">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-times"></i>
+                    </span>
+                    <span class="text">Batal</span>
+                </a>
+            </form>
         </div>
     </div>
 @endsection

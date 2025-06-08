@@ -3,11 +3,28 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Customer\Order; 
+
 
 class DashboardController extends Controller
 {
+    /**
+     * Menampilkan dashboard customer.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
-        return view('pages.customer.index');
+        $latestOrders = Order::where('user_id', Auth::id())
+                              ->with(['service', 'teknisi']) 
+                              ->orderBy('created_at', 'desc')
+                              ->limit(3) 
+                              ->get();
+
+        $userName = Auth::user()->name ?? 'Pengguna';
+
+        return view('pages.customer.index', compact('latestOrders', 'userName'));
     }
 }

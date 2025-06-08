@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_layanan');
-            $table->text('deskripsi')->nullable();
-            $table->decimal('harga_dasar', 10, 2);
-            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
-            $table->timestamps();
+            $table->string('nama_layanan'); 
+            $table->text('deskripsi')->nullable(); 
+            $table->decimal('harga_dasar', 10, 2); 
+            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif'); 
+            $table->timestamps(); 
+        });
+        
+        Schema::table('orders', function (Blueprint $table) {
+            $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
         });
     }
 
@@ -26,6 +30,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropForeign(['service_id']);
+        });
+        
         Schema::dropIfExists('services');
     }
 };

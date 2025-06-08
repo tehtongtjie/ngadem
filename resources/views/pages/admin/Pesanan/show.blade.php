@@ -1,133 +1,131 @@
-@extends('layouts.app') {{-- Pastikan layout ini sudah mendukung Tailwind CSS --}}
+@extends('layouts.Admin.app') {{-- Pastikan Anda memiliki layout admin yang benar yang sudah mengimpor Bootstrap 4 dan SB Admin 2 assets --}}
 
 @section('title', 'Detail Pesanan')
 
 @section('content')
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6">Detail Pesanan</h1>
 
-        <div class="bg-white shadow-md rounded-lg overflow-hidden mb-8">
-            <div class="px-6 py-4 bg-gray-100 border-b border-gray-200">
-                <h6 class="text-lg font-semibold text-gray-800">Informasi Pesanan</h6>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 style="font-weight: 700;" class="h3 mb-0 text-gray-800">Detail Pesanan</h1>
+        <a href="{{ route('admin.pesanan.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-arrow-left fa-sm text-white-50"></i> Kembali ke Daftar Pesanan
+        </a>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Informasi Pesanan</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <th class="bg-light text-dark" style="width: 25%;">ID Pesanan</th>
+                            <td>{{ $pesanan->id }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-dark">Pelanggan</th>
+                            <td>{{ $pesanan->user->name ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-dark">Teknisi</th>
+                            <td>{{ $pesanan->teknisi->name ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-dark">Layanan</th>
+                            <td>{{ $pesanan->service->nama_layanan ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-dark">Tanggal Pesanan</th>
+                            <td>{{ \Carbon\Carbon::parse($pesanan->tanggal_pesanan)->format('d M Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-dark">Tanggal Service Diharapkan</th>
+                            <td>{{ \Carbon\Carbon::parse($pesanan->tanggal_service_diharapkan)->format('d M Y') }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-dark">Jam Service Diharapkan</th>
+                            <td>{{ $pesanan->jam_service_diharapkan }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-dark">Alamat Service</th>
+                            <td>{{ $pesanan->alamat_service }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-dark">Deskripsi Masalah</th>
+                            <td>{{ $pesanan->deskripsi_masalah ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-dark">Status Order</th>
+                            <td>
+                                @php
+                                    $statusText = ucfirst($pesanan->status_order ?? 'Tidak Diketahui');
+                                    $badgeClass = 'badge-secondary'; // Default badge color
+                                    switch (strtolower($pesanan->status_order ?? '')) {
+                                        case 'selesai':
+                                            $badgeClass = 'badge-success';
+                                            break;
+                                        case 'pending':
+                                            $badgeClass = 'badge-secondary';
+                                            break;
+                                        case 'diterima':
+                                            $badgeClass = 'badge-info';
+                                            break;
+                                        case 'dalam_proses':
+                                            $badgeClass = 'badge-warning';
+                                            break;
+                                        case 'dibatalkan':
+                                            $badgeClass = 'badge-danger';
+                                            break;
+                                        default:
+                                            $badgeClass = 'badge-dark';
+                                            break;
+                                    }
+                                @endphp
+                                <span class="badge {{ $badgeClass }}">{{ $statusText }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-dark">Total Harga</th>
+                            <td>Rp {{ number_format($pesanan->total_harga, 0, ',', '.') }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-dark">Dibuat Pada</th>
+                            <td>{{ $pesanan->created_at->format('d M Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-dark">Terakhir Diperbarui</th>
+                            <td>{{ $pesanan->updated_at->format('d M Y H:i') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="p-6">
-                <div class="overflow-x-auto">
-                    <table class="min-w-full leading-normal border-collapse">
-                        <tbody>
-                            <tr class="border-b border-gray-200">
-                                <th
-                                    class="px-5 py-3 bg-white text-left text-sm font-semibold text-gray-600 uppercase tracking-wider w-48">
-                                    ID Pesanan</th>
-                                <td class="px-5 py-3 bg-white text-sm text-gray-900">{{ $pesanan->id }}</td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <th
-                                    class="px-5 py-3 bg-white text-left text-sm font-semibold text-gray-600 uppercase tracking-wider w-48">
-                                    Pelanggan</th>
-                                <td class="px-5 py-3 bg-white text-sm text-gray-900">{{ $pesanan->user->name ?? '-' }}</td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <th
-                                    class="px-5 py-3 bg-white text-left text-sm font-semibold text-gray-600 uppercase tracking-wider w-48">
-                                    Teknisi</th>
-                                <td class="px-5 py-3 bg-white text-sm text-gray-900">{{ $pesanan->teknisi->name ?? '-' }}
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <th
-                                    class="px-5 py-3 bg-white text-left text-sm font-semibold text-gray-600 uppercase tracking-wider w-48">
-                                    Layanan</th>
-                                <td class="px-5 py-3 bg-white text-sm text-gray-900">
-                                    {{ $pesanan->service->nama_layanan ?? '-' }}</td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <th
-                                    class="px-5 py-3 bg-white text-left text-sm font-semibold text-gray-600 uppercase tracking-wider w-48">
-                                    Tanggal Pesanan</th>
-                                <td class="px-5 py-3 bg-white text-sm text-gray-900">
-                                    {{ \Carbon\Carbon::parse($pesanan->tanggal_pesanan)->format('d M Y H:i') }}</td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <th
-                                    class="px-5 py-3 bg-white text-left text-sm font-semibold text-gray-600 uppercase tracking-wider w-48">
-                                    Tanggal Service Diharapkan</th>
-                                <td class="px-5 py-3 bg-white text-sm text-gray-900">
-                                    {{ \Carbon\Carbon::parse($pesanan->tanggal_service_diharapkan)->format('d M Y') }}</td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <th
-                                    class="px-5 py-3 bg-white text-left text-sm font-semibold text-gray-600 uppercase tracking-wider w-48">
-                                    Jam Service Diharapkan</th>
-                                <td class="px-5 py-3 bg-white text-sm text-gray-900">{{ $pesanan->jam_service_diharapkan }}
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <th
-                                    class="px-5 py-3 bg-white text-left text-sm font-semibold text-gray-600 uppercase tracking-wider w-48">
-                                    Alamat Service</th>
-                                <td class="px-5 py-3 bg-white text-sm text-gray-900">{{ $pesanan->alamat_service }}</td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <th
-                                    class="px-5 py-3 bg-white text-left text-sm font-semibold text-gray-600 uppercase tracking-wider w-48">
-                                    Deskripsi Masalah</th>
-                                <td class="px-5 py-3 bg-white text-sm text-gray-900">
-                                    {{ $pesanan->deskripsi_masalah ?? '-' }}</td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <th
-                                    class="px-5 py-3 bg-white text-left text-sm font-semibold text-gray-600 uppercase tracking-wider w-48">
-                                    Status Order</th>
-                                <td class="px-5 py-3 bg-white text-sm text-gray-900">{{ ucfirst($pesanan->status_order) }}
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <th
-                                    class="px-5 py-3 bg-white text-left text-sm font-semibold text-gray-600 uppercase tracking-wider w-48">
-                                    Total Harga</th>
-                                <td class="px-5 py-3 bg-white text-sm text-gray-900">Rp
-                                    {{ number_format($pesanan->total_harga, 0, ',', '.') }}</td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <th
-                                    class="px-5 py-3 bg-white text-left text-sm font-semibold text-gray-600 uppercase tracking-wider w-48">
-                                    Dibuat Pada</th>
-                                <td class="px-5 py-3 bg-white text-sm text-gray-900">
-                                    {{ $pesanan->created_at->format('d M Y H:i') }}</td>
-                            </tr>
-                            <tr>
-                                <th
-                                    class="px-5 py-3 bg-white text-left text-sm font-semibold text-gray-600 uppercase tracking-wider w-48">
-                                    Terakhir Diperbarui</th>
-                                <td class="px-5 py-3 bg-white text-sm text-gray-900">
-                                    {{ $pesanan->updated_at->format('d M Y H:i') }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
 
-                <div class="mt-6 flex flex-wrap gap-3">
-                    <a href="{{ route('admin.pesanan.edit', $pesanan->id) }}"
-                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="lucide lucide-pencil mr-2">
-                            <path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
-                            <path d="m15 5 4 4" />
-                        </svg>
-                        Edit Pesanan
-                    </a>
-                    <a href="{{ route('admin.pesanan.index') }}"
-                        class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="lucide lucide-arrow-left mr-2">
-                            <path d="m12 19-7-7 7-7" />
-                            <path d="M19 12H5" />
-                        </svg>
-                        Kembali ke Daftar
-                    </a>
-                </div>
+            <div class="mt-4 d-flex"> {{-- Use d-flex for button alignment --}}
+                <a href="{{ route('admin.pesanan.edit', $pesanan->id) }}" class="btn btn-warning btn-icon-split mr-2">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-edit"></i>
+                    </span>
+                    <span class="text">Edit Pesanan</span>
+                </a>
+                <a href="{{ route('admin.pesanan.index') }}" class="btn btn-secondary btn-icon-split mr-2">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-arrow-left"></i>
+                    </span>
+                    <span class="text">Kembali ke Daftar</span>
+                </a>
+                {{-- Optional: Delete button for orders (consider carefully if direct deletion is desired) --}}
+                {{-- <form action="{{ route('admin.pesanan.destroy', $pesanan->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-icon-split"
+                        onclick="return confirm('Apakah Anda yakin ingin menghapus pesanan ini?')">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                        <span class="text">Hapus Pesanan</span>
+                    </button>
+                </form> --}}
             </div>
         </div>
     </div>
