@@ -8,17 +8,14 @@ use Illuminate\Http\Request;
 
 class JadwalController extends Controller
 {
-    // Tampilkan semua jadwal teknisi (bisa disesuaikan hanya jadwal teknisi yg login)
     public function index()
     {
-        // Contoh menampilkan semua jadwal teknisi yang login
         $user = auth()->user();
         $jadwals = Jadwal::where('teknisi_id', $user->id)->orderBy('tanggal', 'asc')->get();
 
         return view('pages.teknisi.jadwal.index', compact('jadwals'));
     }
 
-    // Hapus jadwal
     public function destroy($id)
     {
         $jadwal = Jadwal::findOrFail($id);

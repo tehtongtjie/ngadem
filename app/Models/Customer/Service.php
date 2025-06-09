@@ -5,7 +5,7 @@ namespace App\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model // PASTI Service
+class Service extends Model
 {
     use HasFactory;
 
@@ -23,6 +23,6 @@ class Service extends Model // PASTI Service
 
     public function orders()
     {
-        return $this->hasMany(Order::class); // Order::class akan resolve ke App\Models\Customer\Order
+        return $this->hasMany(Order::class); 
     }
 }

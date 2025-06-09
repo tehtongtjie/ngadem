@@ -16,19 +16,15 @@ class Ulasan extends Model
         'komentar',
     ];
 
-    // Relasi ke Order
     public function order()
     {
         return $this->belongsTo(Order::class, 'order_id');
     }
 
-    // Relasi ke User yang memberi ulasan
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    // Relasi ke Teknisi yang diulas (juga user)
     public function teknisi()
     {
         return $this->belongsTo(User::class, 'teknisi_id');

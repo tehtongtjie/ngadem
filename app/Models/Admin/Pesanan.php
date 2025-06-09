@@ -8,7 +8,6 @@ class Pesanan extends Model
 {
     protected $table = 'orders';
 
-    // Field yang boleh diisi mass assignment
     protected $fillable = [
         'user_id',
         'teknisi_id',

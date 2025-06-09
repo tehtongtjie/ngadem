@@ -9,7 +9,7 @@ class Jadwal extends Model
 {
     use HasFactory;
 
-    protected $table = 'jadwals'; //
+    protected $table = 'jadwals';
 
     protected $fillable = [
         'teknisi_id',
@@ -19,7 +19,6 @@ class Jadwal extends Model
         'keterangan',
     ];
 
-    // Relasi ke Teknisi (User dengan role teknisi)
     public function teknisi()
     {
         return $this->belongsTo(\App\Models\User::class, 'teknisi_id');

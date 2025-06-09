@@ -10,18 +10,18 @@ use App\Models\Customer\Service;
 class LayananController extends Controller
 {
     /**
-     * Menampilkan daftar semua layanan.
+     * 
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        $layanans = Service::paginate(10); // Menggunakan Service::
+        $layanans = Service::paginate(10);
         return view('pages.admin.layanan.index', compact('layanans'));
     }
 
     /**
-     * Menampilkan formulir untuk membuat layanan baru.
+     *
      *
      * @return \Illuminate\View\View
      */
@@ -31,19 +31,18 @@ class LayananController extends Controller
     }
 
     /**
-     * Menyimpan layanan baru ke database.
      *
-     * @param  \Illuminate\Http\Request  $request
+     *
+     * @param  \Illuminate\Http\Request  
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         $request->validate([
-            'nama_layanan' => 'required|string|max:255|unique:services,nama_layanan', // Validasi unik
+            'nama_layanan' => 'required|string|max:255|unique:services,nama_layanan',
             'deskripsi' => 'nullable|string',
             'harga_dasar' => 'required|numeric|min:0',
             'status' => 'required|in:aktif,nonaktif',
-            // Tambahkan validasi untuk gambar/file jika ada 'gambar_layanan' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $path = null;
@@ -59,48 +58,47 @@ class LayananController extends Controller
     }
 
     /**
-     * Menampilkan detail layanan tertentu.
-     * Menggunakan Route Model Binding untuk resolusi otomatis model Service.
      *
-     * @param  \App\Models\Customer\Service  $layanan
+     *
+     *
+     * @param  \App\Models\Customer\Service  
      * @return \Illuminate\View\View
      */
-    public function show(Service $layanan) // Menggunakan Route Model Binding
+    public function show(Service $layanan)
     {
         return view('pages.admin.layanan.show', compact('layanan'));
     }
 
     /**
-     * Menampilkan formulir untuk mengedit layanan.
-     * Menggunakan Route Model Binding.
      *
-     * @param  \App\Models\Customer\Service  $layanan
+     *
+     *
+     * @param  \App\Models\Customer\Service 
      * @return \Illuminate\View\View
      */
-    public function edit(Service $layanan) // Menggunakan Route Model Binding
+    public function edit(Service $layanan) 
     {
         return view('pages.admin.layanan.edit', compact('layanan'));
     }
 
     /**
-     * Memperbarui data layanan di penyimpanan.
-     * Menggunakan Route Model Binding.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customer\Service  $layanan
+     *
+     *
+     * @param  \Illuminate\Http\Request
+     * @param  \App\Models\Customer\Service
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Service $layanan) // Menggunakan Route Model Binding
+    public function update(Request $request, Service $layanan)
     {
         $request->validate([
-            'nama_layanan' => 'required|string|max:255|unique:services,nama_layanan,' . $layanan->id, // Validasi unik, kecuali ID sendiri
+            'nama_layanan' => 'required|string|max:255|unique:services,nama_layanan,' . $layanan->id, 
             'deskripsi' => 'nullable|string',
             'harga_dasar' => 'required|numeric|min:0',
             'status' => 'required|in:aktif,nonaktif',
-            // Tambahkan validasi untuk gambar/file jika ada 'gambar_layanan' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $path = $layanan->gambar_layanan; // Ambil path lama jika ada
+        $path = $layanan->gambar_layanan;
 
         try {
             $layanan->update([
@@ -108,7 +106,6 @@ class LayananController extends Controller
                 'deskripsi' => $request->deskripsi,
                 'harga_dasar' => $request->harga_dasar,
                 'status' => $request->status,
-                // 'gambar_layanan' => $path,
             ]);
 
             return redirect()->route('admin.layanan.show', $layanan->id)
@@ -120,13 +117,13 @@ class LayananController extends Controller
     }
 
     /**
-     * Menghapus layanan dari penyimpanan.
-     * Menggunakan Route Model Binding.
      *
-     * @param  \App\Models\Customer\Service  $layanan
+     *
+     *
+     * @param  \App\Models\Customer\Service
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Service $layanan) // Menggunakan Route Model Binding
+    public function destroy(Service $layanan)
     {
 
         try {

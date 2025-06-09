@@ -10,7 +10,7 @@ class Customer extends Model
 {
     use HasFactory;
 
-    protected $table = 'users';  // penting agar query ke tabel 'users'
+    protected $table = 'users';
 
     protected $fillable = [
         'name',

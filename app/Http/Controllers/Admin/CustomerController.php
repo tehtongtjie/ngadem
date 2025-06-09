@@ -9,27 +9,22 @@ use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
-    // Tampilkan semua customer
     public function index()
     {
         $customers = Customer::all();
         return view('pages.admin.customer.index', compact('customers'));
     }
 
-
-    // Tampilkan detail customer
     public function show(Customer $customer)
     {
         return view('pages.admin.customer.show', compact('customer'));
     }
 
-    // Tampilkan form edit customer
     public function edit(Customer $customer)
     {
         return view('pages.admin.customer.edit', compact('customer'));
     }
 
-    // Update data customer
     public function update(Request $request, Customer $customer)
     {
         $request->validate([
@@ -54,7 +49,6 @@ class CustomerController extends Controller
         return redirect()->route('admin.customer.index')->with('success', 'Customer berhasil diupdate.');
     }
 
-    // Hapus customer
     public function destroy(Customer $customer)
     {
         $customer->delete();

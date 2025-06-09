@@ -9,7 +9,5 @@ class Profile extends Model
 {
     use HasFactory;
 
-    // ... properti dan relasi model Anda
     protected $guarded = ['id']; // Contoh
-    // protected $fillable = [...];
 }

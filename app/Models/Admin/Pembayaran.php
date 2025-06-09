@@ -7,10 +7,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Pembayaran extends Model
 {
-    // Nama tabel jika tidak sesuai konvensi (opsional)
-    protected $table = 'payments'; // sesuaikan jika tabelnya bernama lain
+    protected $table = 'payments';
 
-    // Kolom yang boleh diisi secara massal
     protected $fillable = [
         'order_id',
         'metode_pembayaran',
@@ -20,22 +18,17 @@ class Pembayaran extends Model
         'bukti_pembayaran',
     ];
 
-    // Casting tipe data agar otomatis konversi tipe
     protected $casts = [
         'jumlah_bayar' => 'decimal:2',
         'tanggal_pembayaran' => 'datetime',
     ];
 
-    // Default value untuk atribut (jika mau set manual, Laravel 9+ bisa pakai $attributes)
     protected $attributes = [
         'status_pembayaran' => 'pending',
     ];
 
-    // Jika ingin menambahkan accessor/mutator untuk enum status, contoh:
-    // (Laravel 9+ enum casting juga bisa menggunakan enum class, tapi ini cara sederhana)
-
     /**
-     * Validasi status pembayaran dengan enum
+     * 
      */
     public const STATUS_PENDING = 'pending';
     public const STATUS_BERHASIL = 'berhasil';
@@ -50,7 +43,6 @@ class Pembayaran extends Model
         ];
     }
 
-    // Relasi ke order (jika ada model Order)
     public function order()
     {
         return $this->belongsTo(\App\Models\Order::class, 'order_id');

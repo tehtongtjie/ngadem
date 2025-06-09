@@ -15,7 +15,7 @@ use App\Models\Customer\Service;
 class PembayaranController extends Controller
 {
     /**
-     * Menampilkan daftar semua pembayaran.
+     *
      *
      * @return \Illuminate\View\View
      */
@@ -29,7 +29,7 @@ class PembayaranController extends Controller
     }
 
     /**
-     * Menampilkan formulir untuk membuat pembayaran baru.
+     *
      *
      * @return \Illuminate\View\View
      */
@@ -40,7 +40,7 @@ class PembayaranController extends Controller
     }
 
     /**
-     * Menyimpan pembayaran baru ke database.
+     *
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -75,7 +75,7 @@ class PembayaranController extends Controller
     }
 
     /**
-     * Menampilkan detail pembayaran tertentu.
+     *
      *
      * @param  \App\Models\Customer\Payment  $pembayaran
      * @return \Illuminate\View\View
@@ -87,7 +87,7 @@ class PembayaranController extends Controller
     }
 
     /**
-     * Menampilkan formulir untuk mengedit pembayaran.
+     *
      *
      * @param  \App\Models\Customer\Payment  $pembayaran
      * @return \Illuminate\View\View
@@ -100,37 +100,30 @@ class PembayaranController extends Controller
     }
 
     /**
-     * Memperbarui status pembayaran di penyimpanan.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customer\Payment  $pembayaran
+     *
+     * @param  \Illuminate\Http\Request
+     * @param  \App\Models\Customer\Payment
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Payment $pembayaran)
     {
-        // Validasi untuk memastikan status pembayaran yang dikirim valid
         $request->validate([
             'status_pembayaran' => 'required|in:pending,berhasil,gagal',
         ]);
 
-        // Jika hanya ingin mengubah status pembayaran
         $pembayaran->status_pembayaran = $request->status_pembayaran;
 
-        // Cek jika ada file bukti pembayaran yang baru
         if ($request->hasFile('bukti_pembayaran_file')) {
-            // Hapus bukti pembayaran yang lama jika ada
             if ($pembayaran->bukti_pembayaran && Storage::disk('public')->exists($pembayaran->bukti_pembayaran)) {
                 Storage::disk('public')->delete($pembayaran->bukti_pembayaran);
             }
-
-            // Simpan bukti pembayaran yang baru
             $path = $request->file('bukti_pembayaran_file')->store('bukti_pembayaran_admin', 'public');
             $pembayaran->bukti_pembayaran = $path;
         }
 
-        // Simpan perubahan ke database
         try {
-            $pembayaran->save(); // Simpan perubahan status pembayaran
+            $pembayaran->save();
 
             $message = 'Status pembayaran berhasil diperbarui menjadi ' . ucfirst($pembayaran->status_pembayaran) . '.';
         } catch (\Exception $e) {
@@ -144,9 +137,9 @@ class PembayaranController extends Controller
     }
 
     /**
-     * Menghapus pembayaran dari penyimpanan.
      *
-     * @param  \App\Models\Customer\Payment  $pembayaran
+     *
+     * @param  \App\Models\Customer\Payment
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Payment $pembayaran)

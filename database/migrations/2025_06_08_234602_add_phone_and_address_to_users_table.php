@@ -9,9 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // Tambahkan kolom phone setelah kolom email, bisa nullable
             $table->string('phone')->nullable()->after('email');
-            // Tambahkan kolom address setelah kolom phone, bisa nullable
             $table->text('address')->nullable()->after('phone');
         });
     }

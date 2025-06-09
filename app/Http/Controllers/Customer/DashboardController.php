@@ -11,7 +11,7 @@ use App\Models\Customer\Order;
 class DashboardController extends Controller
 {
     /**
-     * Menampilkan dashboard customer.
+     * 
      *
      * @return \Illuminate\View\View
      */

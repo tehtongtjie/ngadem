@@ -1,7 +1,4 @@
 <?php
-
-// app/Http/Controllers/Customer/ServiceController.php
-
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
@@ -11,7 +8,7 @@ use App\Models\Customer\Service;
 class ServiceController extends Controller
 {
     /**
-     * Menampilkan daftar layanan yang tersedia.
+     *
      *
      * @return \Illuminate\View\View
      */

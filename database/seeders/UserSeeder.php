@@ -16,7 +16,7 @@ User::create([
     'name' => 'Teknisi',
     'email' => 'teknisi@gmail.com',
     'password' => Hash::make('password'),
-    'role' => 'teknisi', // harus sesuai enum
+    'role' => 'teknisi', 
 ]);
 
 User::create([

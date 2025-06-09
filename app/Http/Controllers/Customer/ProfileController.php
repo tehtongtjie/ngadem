@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class ProfileController extends Controller
 {
     /**
-     * Menampilkan halaman profil pengguna yang sedang login.
+     * 
      *
      * @return \Illuminate\View\View
      */
@@ -22,7 +22,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Menampilkan formulir untuk mengedit profil pengguna.
+     * 
      *
      * @return \Illuminate\View\View
      */
@@ -33,34 +33,31 @@ class ProfileController extends Controller
     }
 
     /**
-     * Memperbarui data profil pengguna di penyimpanan.
+     * 
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request)
     {
         $user = Auth::user();
 
-        // Validasi data yang masuk
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'phone' => 'nullable|string|max:20', // Tambahkan validasi untuk nomor telepon
-            'address' => 'nullable|string|max:255', // Tambahkan validasi untuk alamat
+            'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
 
-            // Validasi password hanya jika diisi
-            'current_password' => 'nullable|required_with:password|current_password', // Pastikan password lama benar
-            'password' => 'nullable|min:8|confirmed', // Password baru
+            'current_password' => 'nullable|required_with:password|current_password',
+            'password' => 'nullable|min:8|confirmed',
         ]);
 
         // Perbarui atribut user
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->phone = $request->phone;   // Pastikan kolom 'phone' ada di tabel 'users'
-        $user->address = $request->address; // Pastikan kolom 'address' ada di tabel 'users'
+        $user->phone = $request->phone; 
+        $user->address = $request->address; 
 
-        // Perbarui password jika diisi
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }

@@ -12,19 +12,17 @@ use App\Models\Customer\Service;
 class DashboardController extends Controller
 {
     /**
-     * Menampilkan dashboard admin.
-     * Mengambil ringkasan data dan layanan terbaru.
+     *
+     *
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        // Contoh: Ambil ringkasan statistik (seperti yang ada di dashboard Anda)
         $totalPelanggan = User::where('role', 'customer')->count();
         $totalTeknisi = User::where('role', 'teknisi')->count();
         $totalLayanan = Service::count(); 
-
-        // Ambil 5 layanan terbaru
+        
         $latestLayanan = Service::orderBy('created_at', 'desc')->limit(5)->get();
         return view('pages.admin.index', compact('totalPelanggan', 'totalTeknisi', 'totalLayanan', 'latestLayanan'));
     }

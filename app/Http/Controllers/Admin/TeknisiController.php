@@ -64,17 +64,14 @@ class TeknisiController extends Controller
     }
 
     /**
-     * Display the specified teknisi.
+     * 
      *
-     * @param  \App\Models\Admin\Teknisi  $teknisi
+     * @param  \App\Models\Admin\Teknisi
      * @return \Illuminate\View\View
      */
     public function show(Teknisi $teknisi)
     {
-        // Load the associated detail for the teknisi
         $teknisi->load('detail');
-
-        // Return the view to display the teknisi details, passing the teknisi object
         return view('pages.admin.teknisi.show', compact('teknisi'));
     }
 
