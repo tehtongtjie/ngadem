@@ -40,7 +40,7 @@ Route::middleware(['auth', EnsureUserHasRole::class . ':admin'])
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
         Route::resource('laporan', AdminLaporanController::class);
-        Route::resource('layanan', AdminLayananController::class)->except(['create', 'store', 'destroy']);
+        Route::resource('layanan', AdminLayananController::class);
         Route::resource('pembayaran', AdminPembayaranController::class);
         Route::resource('customer', AdminCustomerController::class)->except(['create', 'store']);
         Route::resource('pesanan', AdminPesananController::class)->except(['create', 'store', 'destroy']);
@@ -55,6 +55,10 @@ Route::middleware(['auth', EnsureUserHasRole::class . ':teknisi'])
     ->name('teknisi.')
     ->group(function () {
         Route::get('/dashboard', [TeknisiDashboardController::class, 'index'])->name('dashboard');
+
+
+        Route::get('/orders/{order}/upload-report', [TeknisiOrderController::class, 'uploadReport'])->name('orders.upload_report');
+        Route::post('/orders/{order}/upload-report', [TeknisiOrderController::class, 'storeReport'])->name('orders.store_report');
 
         Route::get('/orders/completed', [TeknisiOrderController::class, 'completed'])->name('orders.completed');
         Route::get('/orders/assigned', [TeknisiOrderController::class, 'assigned'])->name('orders.assigned');
@@ -84,7 +88,7 @@ Route::middleware(['auth', EnsureUserHasRole::class . ':customer'])
         Route::get('/payments/{payment}/upload', [CustomerPaymentController::class, 'uploadProof'])->name('payments.upload');
         Route::post('/payments/{payment}/upload', [CustomerPaymentController::class, 'storeProof'])->name('payments.store-proof');
 
-        Route::resource('profile', CustomerProfileController::class)->only(['index', 'show']);
+        Route::resource('profile', CustomerProfileController::class)->only(['index', 'show', 'edit', 'update']);
         Route::resource('review', CustomerReviewController::class)->only(['index', 'show']);
     });
 

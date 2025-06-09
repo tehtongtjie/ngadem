@@ -1,13 +1,18 @@
-@extends('layouts.Admin.app') {{-- Pastikan Anda memiliki layout admin yang benar yang sudah mengimpor Bootstrap 4 dan SB Admin 2 assets --}}
+@extends('layouts.Admin.app')
 
 @section('title', 'Daftar Layanan')
 
 @section('content')
 
+    <!-- Title Section -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 style="font-weight: 700;" class="h3 mb-0 text-gray-800">Daftar Layanan</h1>
+        <h1 class="h3 mb-0 text-gray-800" style="font-weight: 700;">Daftar Layanan</h1>
+        <a href="{{ route('admin.layanan.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Baru
+        </a>
     </div>
 
+    <!-- Service List Table Section -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Data Layanan</h6>
@@ -25,19 +30,6 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    {{-- Optional: Add a <tfoot> if you're using DataTables JS --}}
-                    {{--
-                    <tfoot>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nama Layanan</th>
-                            <th>Deskripsi</th>
-                            <th>Harga Dasar</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </tfoot>
-                    --}}
                     <tbody>
                         @forelse ($layanans as $layanan)
                             <tr>
@@ -92,4 +84,5 @@
             </div>
         </div>
     </div>
+
 @endsection

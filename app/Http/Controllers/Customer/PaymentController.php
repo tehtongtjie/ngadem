@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Customer\Payment;
-use App\Models\Customer\Order;
 use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
@@ -19,11 +18,11 @@ class PaymentController extends Controller
     public function index()
     {
         $payments = Payment::whereHas('order', function ($query) {
-                                $query->where('user_id', Auth::id());
-                            })
-                            ->with('order')
-                            ->orderBy('created_at', 'desc')
-                            ->get();
+                            $query->where('user_id', Auth::id());
+                        })
+                        ->with('order')
+                        ->orderBy('created_at', 'desc')
+                        ->get();
 
         return view('pages.customer.payments.index', compact('payments'));
     }
@@ -54,7 +53,7 @@ class PaymentController extends Controller
      */
     public function uploadProof(Payment $payment)
     {
-        // Pastikan pembayaran ini terkait dengan user yang login untuk keamanan
+        // Pastikan pembayaran ini terkait dengan user yang login
         if ($payment->order->user_id !== Auth::id()) {
             abort(403, 'Anda tidak diizinkan mengunggah bukti pembayaran ini.');
         }
@@ -93,21 +92,19 @@ class PaymentController extends Controller
         }
 
         // Simpan file baru ke direktori 'public/bukti_pembayaran'
-        $path = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
+        if ($request->hasFile('bukti_pembayaran')) {
+            $path = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
+            
+            if ($path) {
+                $payment->bukti_pembayaran = $path;
+                $payment->status_pembayaran = 'pending'; // Kembali ke pending untuk menunggu konfirmasi admin
+                $payment->save();
 
-        // Update path bukti pembayaran dan status pembayaran di database
-        $payment->bukti_pembayaran = $path;
-        $payment->status_pembayaran = 'pending'; // Kembali ke pending untuk menunggu konfirmasi admin
-        $payment->save();
-
-        return redirect()->route('pages.customer.payments.show', $payment->id)
-                         ->with('success', 'Bukti pembayaran berhasil diunggah. Menunggu konfirmasi admin.');
+                return redirect()->route('customer.payments.show', $payment->id)
+                                 ->with('success', 'Bukti pembayaran berhasil diunggah. Menunggu konfirmasi admin.');
+            } else {
+                return redirect()->back()->with('error', 'Gagal mengunggah bukti pembayaran. Coba lagi!');
+            }
+        }
     }
-
-    // Metode lain (create, store, edit, update, destroy) dibiarkan kosong atau sesuaikan kebutuhan
-    public function create() {}
-    public function store(Request $request) {}
-    public function edit(string $id) {}
-    public function update(Request $request, string $id) {}
-    public function destroy(string $id) {}
 }

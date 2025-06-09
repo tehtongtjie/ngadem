@@ -1,4 +1,4 @@
-@extends('layouts.Admin.app') {{-- Assuming you have a layout file for SB Admin 2, e.g., 'layouts.admin' --}}
+@extends('layouts.Admin.app')
 
 @section('title', 'Dashboard Admin')
 
@@ -6,12 +6,9 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 style="font-weight: 700;" class="h3 mb-0 text-gray-800">Dashboard Admin</h1>
-        {{-- Optional: Add a button for actions, e.g., "Add New" --}}
-        {{--
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Baru
+        <a href="{{ route('admin.layanan.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Layanan Baru
         </a>
-        --}}
     </div>
 
     <hr class="sidebar-divider my-0 mb-4">
@@ -87,55 +84,62 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama Layanan</th>
-                                <th>Teknisi</th>
+                                <th>Deskripsi</th>
+                                <th>Harga Dasar</th>
                                 <th>Status</th>
-                                <th>Jadwal Layanan</th>
+                                <th>Dibuat Pada</th>
+                                <th>Aksi</th> {{-- Kolom Aksi --}}
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($latestLayanan as $index => $layanan)
+                            @forelse ($latestLayanan as $layanan)
+                                {{-- <-- KOREKSI DI SINI --}}
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $layanan->nama_layanan ?? '-' }}</td>
-                                    <td>
-                                        {{-- Prioritize 'name' if it exists (e.g., from User model), otherwise use 'nama_teknisi' --}}
-                                        {{ $layanan->teknisi->name ?? ($layanan->teknisi->nama_teknisi ?? '-') }}
-                                    </td>
+                                    <td>{{ \Illuminate\Support\Str::limit($layanan->deskripsi, 50, '...') }}</td>
+                                    <td>Rp {{ number_format($layanan->harga_dasar, 0, ',', '.') }}</td>
                                     <td>
                                         @php
                                             $statusText = ucfirst($layanan->status ?? 'Tidak Diketahui');
-                                            $badgeClass = 'badge-secondary'; // Default badge color
+                                            $badgeClass = 'badge-secondary';
                                             switch (strtolower($layanan->status ?? '')) {
-                                                case 'selesai':
+                                                case 'aktif':
                                                     $badgeClass = 'badge-success';
                                                     break;
-                                                case 'dijadwalkan':
-                                                    $badgeClass = 'badge-info';
-                                                    break;
-                                                case 'berlangsung':
-                                                    $badgeClass = 'badge-warning';
-                                                    break;
-                                                case 'dibatalkan':
+                                                case 'nonaktif':
                                                     $badgeClass = 'badge-danger';
-                                                    break;
-                                                case 'pending':
-                                                    $badgeClass = 'badge-primary'; // Using primary for pending
                                                     break;
                                             }
                                         @endphp
                                         <span class="badge {{ $badgeClass }}">{{ $statusText }}</span>
                                     </td>
                                     <td>
-                                        {{ $layanan->jadwal_layanan ? \Carbon\Carbon::parse($layanan->jadwal_layanan)->translatedFormat('d M Y, H:i') : '-' }}
+                                        {{ \Carbon\Carbon::parse($layanan->created_at)->format('d M Y, H:i') }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.layanan.show', $layanan->id) }}"
+                                            class="btn btn-info btn-sm" title="Lihat Detail">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ route('admin.layanan.edit', $layanan->id) }}"
+                                            class="btn btn-warning btn-sm" title="Edit Layanan">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center text-gray-600">Belum ada data layanan terbaru.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
             @else
                 <div class="alert alert-info" role="alert">
-                    <i class="fas fa-info-circle"></i> Belum ada data layanan terbaru.
+                    <i class="fas fa-info-circle"></i> Belum ada data layanan untuk ditampilkan.
                 </div>
             @endif
         </div>

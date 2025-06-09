@@ -17,105 +17,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
 
-    <style>
-        body {
-            font-family: 'Figtree', sans-serif;
-            background: linear-gradient(135deg, #FFEDD5 0%, #FB923C 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                0 2px 4px -2px rgba(0, 0, 0, 0.06);
-        }
-
-        .hero-gradient {
-            background: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 15px -3px rgba(251, 146, 60, 0.5),
-                0 4px 6px -2px rgba(251, 146, 60, 0.3);
-        }
-
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
-
-        @keyframes floating {
-            0% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-
-            100% {
-                transform: translateY(0px);
-            }
-        }
-
-        .service-card {
-            transition: all 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow:
-                0 20px 25px -5px rgba(251, 146, 60, 0.4),
-                0 10px 10px -5px rgba(251, 146, 60, 0.2);
-        }
-
-        .nav-link {
-            position: relative;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: #f59e0b;
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* Header shrink effect on scroll */
-        header.shrink {
-            padding-top: 0.5rem !important;
-            padding-bottom: 0.5rem !important;
-            border-radius: 9999px !important;
-            /* fully rounded */
-            background: rgba(255, 255, 255, 0.3) !important;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 30px rgba(251, 146, 60, 0.4) !important;
-        }
-
-        header.shrink img#header-logo-img {
-            height: 32px !important;
-        }
-
-        header.shrink span#header-logo-text {
-            font-size: 1.125rem !important;
-            /* text-lg */
-        }
-
-        header.shrink nav a {
-            font-size: 0.875rem !important;
-            /* text-sm */
-        }
-    </style>
 </head>
 
 <body class="antialiased">
@@ -242,11 +145,11 @@
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
                     <div class="relative group rounded-xl shadow-lg overflow-hidden cursor-pointer" data-aos="zoom-in"
                         data-aos-duration="1000">
-                        <img src="{{ asset('img/foto1.jpg') }}" alt="Pembersihan AC Indoor"
+                        <img src="{{ asset('img/foto1.jpg') }}" alt="Pembersihan Unit Outdoor"
                             class="object-cover w-full h-48 sm:h-56 md:h-64 transition-transform duration-500 group-hover:scale-110" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-orange-800/70 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                            <p class="text-white font-medium text-sm">Pembersihan AC Indoor</p>
+                            <p class="text-white font-medium text-sm">Pembersihan Unit Outdoor</p>
                         </div>
                     </div>
 
@@ -282,41 +185,41 @@
 
                     <div class="relative group rounded-xl shadow-lg overflow-hidden cursor-pointer" data-aos="zoom-in"
                         data-aos-duration="1000" data-aos-delay="400">
-                        <img src="{{ asset('img/foto5.jpg') }}" alt="Perawatan Rutin AC Kantor"
+                        <img src="{{ asset('img/foto5.jpg') }}" alt="Perawatan Rutin Unit Outdoor"
                             class="object-cover w-full h-48 sm:h-56 md:h-64 transition-transform duration-500 group-hover:scale-110" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-orange-800/70 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                            <p class="text-white font-medium text-sm">Perawatan Rutin AC Kantor</p>
+                            <p class="text-white font-medium text-sm">Perawatan Rutin Unit Outdoor</p>
                         </div>
                     </div>
 
                     <div class="relative group rounded-xl shadow-lg overflow-hidden cursor-pointer" data-aos="zoom-in"
                         data-aos-duration="1000" data-aos-delay="500">
-                        <img src="{{ asset('img/foto6.jpg') }}" alt="Penggantian Komponen AC"
+                        <img src="{{ asset('img/foto6.jpg') }}" alt="Pembersihan Ac Kantor"
                             class="object-cover w-full h-48 sm:h-56 md:h-64 transition-transform duration-500 group-hover:scale-110" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-orange-800/70 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                            <p class="text-white font-medium text-sm">Penggantian Komponen AC</p>
+                            <p class="text-white font-medium text-sm">Pembersihan Ac Kantor</p>
                         </div>
                     </div>
 
                     <div class="relative group rounded-xl shadow-lg overflow-hidden cursor-pointer" data-aos="zoom-in"
                         data-aos-duration="1000" data-aos-delay="600">
-                        <img src="{{ asset('img/foto7.jpg') }}" alt="Pembersihan Kondensor AC"
+                        <img src="{{ asset('img/foto7.jpg') }}" alt="Pengecekan Kebocoran Pipa"
                             class="object-cover w-full h-48 sm:h-56 md:h-64 transition-transform duration-500 group-hover:scale-110" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-orange-800/70 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                            <p class="text-white font-medium text-sm">Pembersihan Kondensor AC</p>
+                            <p class="text-white font-medium text-sm">Pengecekan Kebocoran Pipa</p>
                         </div>
                     </div>
 
                     <div class="relative group rounded-xl shadow-lg overflow-hidden cursor-pointer" data-aos="zoom-in"
                         data-aos-duration="1000" data-aos-delay="700">
-                        <img src="{{ asset('img/foto8.jpg') }}" alt="Pengecekan Kebocoran Pipa"
+                        <img src="{{ asset('img/foto8.jpg') }}" alt="Pindah Unit"
                             class="object-cover w-full h-48 sm:h-56 md:h-64 transition-transform duration-500 group-hover:scale-110" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-orange-800/70 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                            <p class="text-white font-medium text-sm">Pengecekan Kebocoran Pipa</p>
+                            <p class="text-white font-medium text-sm">Pindah Unit</p>
                         </div>
                     </div>
                 </div>
@@ -339,43 +242,117 @@
         </section>
 
         <!-- Footer -->
-        <footer class="py-8 text-center mt-auto" data-aos="fade-up" data-aos-duration="1000">
-            <div class="glass-effect rounded-2xl py-6 px-4 text-gray-700">
-                <p>&copy; {{ date('Y') }} Ngadem. Hak Cipta Dilindungi.</p>
-                <div class="mt-4 space-x-5 text-2xl">
-                    <a href="#" class="text-gray-700 hover:text-yellow-500 transition-colors duration-300">
-                        <i class="fab fa-facebook"></i>
-                    </a>
-                    <a href="#" class="text-gray-700 hover:text-yellow-500 transition-colors duration-300">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="text-gray-700 hover:text-yellow-500 transition-colors duration-300">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="text-gray-700 hover:text-yellow-500 transition-colors duration-300">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
+        <footer class="py-12 bg-transparent border-t border-gray-600 text-white mt-auto backdrop-blur-lg bg-opacity-30"
+            data-aos="fade-up" data-aos-duration="1000">
+            <div class="container mx-auto px-6 lg:px-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 text-center lg:text-left">
+                    <!-- About Section -->
+                    <div class="col-span-1 lg:col-span-1">
+                        <img src="{{ asset('img/logo.png') }}" alt="Logo Ngadem"
+                            class="h-14 w-auto mx-auto lg:mx-0 mb-4">
+                        <p class="text-white text-sm leading-relaxed">
+                            Ngadem adalah solusi terbaik untuk kenyamanan AC Anda. Dengan teknisi berpengalaman dan
+                            layanan profesional, kami hadir membawa kesejukan sejati di setiap ruangan.
+                        </p>
+                        <p class="mt-4 text-xs text-yellow-100">
+                            &copy; {{ date('Y') }} Ngadem. Hak Cipta Dilindungi.
+                        </p>
+                    </div>
+
+                    <!-- Quick Links Section -->
+                    <div class="col-span-1 lg:col-span-1">
+                        <h3 class="text-xl font-bold mb-4 text-white">Quick Links</h3>
+                        <ul class="space-y-3 text-white text-sm">
+                            <li>
+                                <a href="{{ route('customer.dashboard') }}"
+                                    class="hover:text-yellow-200 transition duration-300 flex items-center justify-center lg:justify-start">
+                                    <i class="fas fa-arrow-right text-yellow-200 mr-2"></i> Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('customer.orders.index') }}"
+                                    class="hover:text-yellow-200 transition duration-300 flex items-center justify-center lg:justify-start">
+                                    <i class="fas fa-arrow-right text-yellow-200 mr-2"></i> Pesanan Anda
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('customer.payments.index') }}"
+                                    class="hover:text-yellow-200 transition duration-300 flex items-center justify-center lg:justify-start">
+                                    <i class="fas fa-arrow-right text-yellow-200 mr-2"></i> Pembayaran
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('customer.service.index') }}"
+                                    class="hover:text-yellow-200 transition duration-300 flex items-center justify-center lg:justify-start">
+                                    <i class="fas fa-arrow-right text-yellow-200 mr-2"></i> Layanan Kami
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Section -->
+                    <div class="col-span-1 lg:col-span-1">
+                        <h3 class="text-xl font-bold mb-4 text-white">Kontak Kami</h3>
+                        <ul class="space-y-3 text-white text-sm">
+                            <li>
+                                <a href="mailto:info@ngadem.com"
+                                    class="hover:text-yellow-200 transition duration-300 flex items-center justify-center lg:justify-start">
+                                    <i class="fas fa-envelope text-yellow-200 mr-2"></i> ngademac@gmail.com
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tel:+6281234567890"
+                                    class="hover:text-yellow-200 transition duration-300 flex items-center justify-center lg:justify-start">
+                                    <i class="fas fa-phone-alt text-yellow-200 mr-2"></i> +62 812 3456 7890
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="hover:text-yellow-200 transition duration-300 flex items-center justify-center lg:justify-start">
+                                    <i class="fas fa-map-marker-alt text-yellow-200 mr-2"></i> Jl. Teknologi No. 123,
+                                    Mataram
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Social Media Section -->
+                    <div class="col-span-1 lg:col-span-1">
+                        <h3 class="text-xl font-bold mb-4 text-white">Ikuti Kami</h3>
+                        <div class="flex justify-center lg:justify-start space-x-4 text-3xl">
+                            <a href="#" class="text-yellow-200 hover:text-white transition-colors duration-300"
+                                aria-label="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="text-yellow-200 hover:text-white transition-colors duration-300"
+                                aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="text-yellow-200 hover:text-white transition-colors duration-300"
+                                aria-label="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="text-yellow-200 hover:text-white transition-colors duration-300"
+                                aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Bottom -->
+                <div class="mt-10 pt-6 border-t border-yellow-700 text-center">
+                    <div class="text-sm text-yellow-100 space-x-4">
+                        <a href="#" class="hover:text-white transition duration-300">Kebijakan Privasi</a>
+                        <span class="text-yellow-200">|</span>
+                        <a href="#" class="hover:text-white transition duration-300">Syarat & Ketentuan</a>
+                    </div>
                 </div>
             </div>
         </footer>
     </div>
 
-    <script>
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100
-        });
-
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('main-header');
-            if (window.scrollY > 50) {
-                header.classList.add('shrink');
-            } else {
-                header.classList.remove('shrink');
-            }
-        });
-    </script>
+    <script src="{{ asset('js/welcome.js') }}"></script>
 </body>
 
 </html>

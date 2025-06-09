@@ -6,7 +6,7 @@ use App\Http\Models\Teknisi\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TeknisiCustomerController extends Controller
+class CustomerController extends Controller
 {
     public function index()
     {

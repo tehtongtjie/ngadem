@@ -6,7 +6,7 @@ use App\Models\Teknisi\Jadwal;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TeknisiJadwalController extends Controller
+class JadwalController extends Controller
 {
     // Tampilkan semua jadwal teknisi (bisa disesuaikan hanya jadwal teknisi yg login)
     public function index()

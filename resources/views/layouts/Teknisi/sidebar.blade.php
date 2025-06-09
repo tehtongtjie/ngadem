@@ -119,24 +119,6 @@
         </div>
     </li>
 
-    <!-- Jadwal Service -->
-    <li class="nav-item {{ request()->routeIs('teknisi.jadwal.*') ? 'active' : '' }}">
-        <a class="nav-link {{ request()->routeIs('teknisi.jadwal.*') ? 'active' : '' }}"
-            href="{{ route('teknisi.jadwal.index') }}">
-            <i class="fas fa-fw fa-user-tie"></i>
-            <span>Jadwal Service</span>
-        </a>
-    </li>
-
-    <!-- Riwayat Pekerjaan -->
-    <li class="nav-item {{ request()->routeIs('teknisi.riwayat.*') ? 'active' : '' }}">
-        <a class="nav-link {{ request()->routeIs('teknisi.riwayat.*') ? 'active' : '' }}"
-            href="{{ route('teknisi.riwayat.index') }}">
-            <i class="fas fa-fw fa-cogs"></i>
-            <span>Riwayat Pekerjaan</span>
-        </a>
-    </li>
-
     <!-- Total Pendapatan -->
     <li class="nav-item {{ request()->routeIs('teknisi.pendapatan.*') ? 'active' : '' }}">
         <a class="nav-link {{ request()->routeIs('teknisi.pendapatan.*') ? 'active' : '' }}"

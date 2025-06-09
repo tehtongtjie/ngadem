@@ -1,138 +1,91 @@
 <x-guest-layout>
-    <!-- Tambahkan CSS kustom di sini -->
-    <style>
-        body {
-            background-color: #f0f4f8;
-            font-family: Arial, sans-serif;
-        }
 
-        form {
-            max-width: 400px;
-            margin: 50px auto;
-            background: white;
-            padding: 30px 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
+    {{-- Logo di Mobile (sisi kiri tersembunyi saat mobile) --}}
+    <div class="lg:hidden text-center mb-8" data-aos="fade-down">
+        <a href="/">
+            <img src="{{ asset('img/logo.png') }}" alt="Logo Ngadem"
+                class="h-20 w-auto mx-auto drop-shadow-md hover:scale-105 transition-transform duration-300">
+        </a>
+        <h1 class="text-3xl font-extrabold text-gray-900 mt-4">
+            Selamat Datang di <span class="text-yellow-600">Ngadem</span>
+        </h1>
+        <p class="text-gray-600 mt-1 text-sm">
+            Masuk untuk mengelola kenyamanan AC Anda
+        </p>
+    </div>
 
-        label {
-            font-weight: 600;
-            color: #334155;
-        }
+    {{-- Kartu Form Login --}}
+    <div class="bg-white p-8 md:p-10 rounded-2xl shadow-2xl border border-gray-100 w-full max-w-md mx-auto"
+        data-aos="fade-up" data-aos-delay="200">
 
-        input[type="email"],
-        input[type="password"] {
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            padding: 10px;
-            font-size: 14px;
-        }
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+            Masuk ke Akun Anda
+        </h2>
 
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            border-color: #6366f1;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
-        }
+        {{-- Status sesi login --}}
+        <x-auth-session-status class="mb-4 text-green-600 text-center font-medium" :status="session('status')" />
 
-        .mt-4 {
-            margin-top: 1rem;
-        }
+        <form method="POST" action="{{ route('login') }}" class="space-y-6">
+            @csrf
 
-        .block {
-            display: block;
-        }
+            {{-- Email --}}
+            <div>
+                <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Alamat Email
+                </label>
+                <div class="relative">
+                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
+                        autocomplete="username"
+                        class="pl-10 pr-4 py-2 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500 @error('email') border-red-500 @enderror">
+                    <i class="fas fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+                <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-600 text-sm" />
+            </div>
 
-        .flex {
-            display: flex;
-        }
+            {{-- Password --}}
+            <div>
+                <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Kata Sandi
+                </label>
+                <div class="relative">
+                    <input id="password" type="password" name="password" required autocomplete="current-password"
+                        class="pl-10 pr-4 py-2 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500 @error('password') border-red-500 @enderror">
+                    <i class="fas fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+                <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-600 text-sm" />
+            </div>
 
-        .items-center {
-            align-items: center;
-        }
+            {{-- Remember Me & Lupa Password --}}
+            <div class="flex items-center justify-between">
+                <label for="remember_me" class="inline-flex items-center cursor-pointer">
+                    <input id="remember_me" type="checkbox" name="remember"
+                        class="rounded border-gray-300 text-yellow-600 shadow-sm focus:ring-yellow-500">
+                    <span class="ml-2 text-sm text-gray-600">Ingat saya</span>
+                </label>
 
-        .justify-end {
-            justify-content: flex-end;
-        }
+                @if (Route::has('password.request'))
+                    <a href="{{ route('password.request') }}"
+                        class="underline text-sm text-gray-600 hover:text-yellow-600 transition-colors">
+                        Lupa Kata Sandi?
+                    </a>
+                @endif
+            </div>
 
-        .ml-3 {
-            margin-left: 0.75rem;
-        }
+            {{-- CTA --}}
+            <div
+                class="flex flex-col sm:flex-row items-center justify-between mt-6 space-y-4 sm:space-y-0 sm:space-x-4">
 
-        .underline {
-            text-decoration: underline;
-        }
-
-        a:hover {
-            color: #1e40af;
-        }
-
-        /* Tombol Login */
-        button {
-            background-color: #4f46e5;
-            color: white;
-            padding: 10px 20px;
-            font-weight: 600;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #4338ca;
-        }
-
-        /* Remember me */
-        label.inline-flex {
-            cursor: pointer;
-            user-select: none;
-        }
-    </style>
-
-    <!-- Pesan status (misal: suksezs registrasi) -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-
-        <!-- Email -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                autocomplete="current-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center cursor-pointer">
-                <input id="remember_me" type="checkbox" name="remember"
-                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" />
-                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <!-- Actions -->
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    {{ __('Forgot your password?') }}
+                <a href="{{ route('register') }}"
+                    class="text-sm text-gray-600 underline hover:text-yellow-600 transition-colors order-2 sm:order-1">
+                    Belum punya akun?
                 </a>
-            @endif
 
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
+                <button type="submit"
+                    class="w-full sm:w-auto bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105 order-1 sm:order-2 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2">
+                    Masuk
+                </button>
+            </div>
+        </form>
+    </div>
+
 </x-guest-layout>

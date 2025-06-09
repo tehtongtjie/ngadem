@@ -6,7 +6,7 @@ use App\Http\Models\Teknisi\Riwayat;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TeknisiRiwayatController extends Controller
+class RiwayatController extends Controller
 {
     public function index()
     {
