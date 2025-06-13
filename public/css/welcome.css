@@ -1,60 +1,86 @@
 body {
     font-family: "Figtree", sans-serif;
-    background: linear-gradient(135deg, #ffedd5 0%, #fb923c 100%);
+    background: linear-gradient(135deg, #fef3e7 0%, #f97316 100%);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .glass-effect {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-        0 2px 4px -2px rgba(0, 0, 0, 0.06);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.glass-effect:hover {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .hero-gradient {
     background: linear-gradient(
-        rgba(255, 255, 255, 0.15),
+        180deg,
+        rgba(255, 255, 255, 0.2),
         rgba(255, 255, 255, 0.05)
     );
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 10px 15px -3px rgba(251, 146, 60, 0.5),
-        0 4px 6px -2px rgba(251, 146, 60, 0.3);
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 12px 20px rgba(251, 146, 60, 0.4),
+        0 6px 8px rgba(251, 146, 60, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at top left,
+        rgba(251, 146, 60, 0.15),
+        transparent 70%
+    );
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.hero-gradient:hover::before {
+    opacity: 0.7;
 }
 
 .floating {
-    animation: floating 3s ease-in-out infinite;
+    animation: floating 3.5s ease-in-out infinite;
 }
 
 @keyframes floating {
-    0% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
-
+    0%,
     100% {
-        transform: translateY(0px);
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
     }
 }
 
 .service-card {
-    transition: all 0.3s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 25px -5px rgba(251, 146, 60, 0.4),
-        0 10px 10px -5px rgba(251, 146, 60, 0.2);
+    transform: translateY(-12px);
+    box-shadow: 0 25px 30px -10px rgba(251, 146, 60, 0.5),
+        0 12px 15px -5px rgba(251, 146, 60, 0.3);
 }
 
 .nav-link {
     position: relative;
+    transition: color 0.3s ease;
 }
 
 .nav-link::after {
@@ -62,37 +88,42 @@ body {
     position: absolute;
     width: 0;
     height: 2px;
-    bottom: -4px;
+    bottom: -6px;
     left: 0;
     background-color: #f59e0b;
-    transition: width 0.3s ease;
+    transition: width 0.3s ease-in-out;
 }
 
 .nav-link:hover::after {
     width: 100%;
 }
 
+.nav-link:hover {
+    color: #f59e0b;
+}
+
 /* Header shrink effect on scroll */
 header.shrink {
-    padding-top: 0.5rem !important;
-    padding-bottom: 0.5rem !important;
+    padding: 0.75rem 1rem !important;
     border-radius: 9999px !important;
-    /* fully rounded */
-    background: rgba(255, 255, 255, 0.3) !important;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 30px rgba(251, 146, 60, 0.4) !important;
+    background: rgba(255, 255, 255, 0.35) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    box-shadow: 0 10px 20px rgba(251, 146, 60, 0.3) !important;
+    transition: all 0.3s ease;
 }
 
 header.shrink img#header-logo-img {
-    height: 32px !important;
+    height: 36px !important;
+    transition: height 0.3s ease;
 }
 
 header.shrink span#header-logo-text {
-    font-size: 1.125rem !important;
-    /* text-lg */
+    font-size: 1.25rem !important;
+    transition: font-size 0.3s ease;
 }
 
 header.shrink nav a {
-    font-size: 0.875rem !important;
-    /* text-sm */
+    font-size: 0.9rem !important;
+    transition: font-size 0.3s ease;
 }

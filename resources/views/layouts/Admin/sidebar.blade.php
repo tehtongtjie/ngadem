@@ -81,16 +81,6 @@
         </a>
     </li>
 
-    <li class="nav-item {{ request()->routeIs('admin.ulasan.*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.ulasan.index') }}"
-            style="{{ request()->routeIs('admin.ulasan.*') ? 'background-color: #FF6F00; color: #fff;' : 'color: #D1D1D1;' }}"
-            onmouseover="this.style.backgroundColor='#FF8F00'; this.style.color='#000';"
-            onmouseout="this.style.backgroundColor='{{ request()->routeIs('admin.ulasan.*') ? '#FF6F00' : 'transparent' }}'; this.style.color='{{ request()->routeIs('admin.ulasan.*') ? '#fff' : '#D1D1D1' }}';">
-            <i class="fas fa-fw fa-comments"></i>
-            <span>Manajemen Ulasan</span>
-        </a>
-    </li>
-
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block" style="border-color: #A9A9A9;">
 

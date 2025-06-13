@@ -85,10 +85,6 @@
                                         class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i> Lihat
                                     </a>
-                                    <a href="{{ route('admin.pembayaran.edit', $pembayaran->id) }}"
-                                        class="btn btn-warning btn-sm">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </a>
                                     <form action="{{ route('admin.pembayaran.destroy', $pembayaran->id) }}" method="POST"
                                         class="d-inline">
                                         @csrf

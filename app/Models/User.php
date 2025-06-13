@@ -29,14 +29,4 @@ class User extends Authenticatable
         'password' => 'hashed',
         'role' => UserRole::class,
     ];
-
-    public function teknisiDetail()
-    {
-        return $this->hasOne(\App\Models\Teknisi\TeknisiDetail::class, 'user_id');
-    }
-
-public function jadwals()
-{
-    return $this->hasMany(\App\Models\Teknisi\Jadwal::class, 'teknisi_id');
-}
 }
