@@ -12,11 +12,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -24,24 +19,24 @@ class User extends Authenticatable
         'role',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'role' => UserRole::class, // ✅ tambahkan casting enum ke sini
+        'role' => UserRole::class,
     ];
+
+    public function teknisiDetail()
+    {
+        return $this->hasOne(\App\Models\Teknisi\TeknisiDetail::class, 'user_id');
+    }
+
+public function jadwals()
+{
+    return $this->hasMany(\App\Models\Teknisi\Jadwal::class, 'teknisi_id');
+}
 }

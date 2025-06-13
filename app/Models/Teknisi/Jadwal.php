@@ -2,15 +2,10 @@
 
 namespace App\Models\Teknisi;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Jadwal extends Model
 {
-    use HasFactory;
-
-    protected $table = 'jadwals';
-
     protected $fillable = [
         'teknisi_id',
         'tanggal',
@@ -19,8 +14,17 @@ class Jadwal extends Model
         'keterangan',
     ];
 
+    protected $casts = [
+        'tanggal' => 'date',
+        'jam_mulai' => 'datetime',
+        'jam_selesai' => 'datetime',
+    ];
+
+    /**
+     * Get the technician associated with the schedule.
+     */
     public function teknisi()
     {
-        return $this->belongsTo(\App\Models\User::class, 'teknisi_id');
+        return $this->belongsTo(User::class, 'teknisi_id');
     }
 }

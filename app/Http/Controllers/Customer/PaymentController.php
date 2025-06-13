@@ -15,17 +15,15 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+        public function index()
     {
         $payments = Payment::whereHas('order', function ($query) {
-                            $query->where('user_id', Auth::id());
-                        })
-                        ->with('order')
-                        ->orderBy('created_at', 'desc')
-                        ->get();
+            $query->where('user_id', auth()->id());
+        })->orderBy('created_at', 'desc')->paginate(10); // <-- Ganti get() jadi paginate()
 
-        return view('pages.customer.payments.index', compact('payments'));
+        return view('pages.Customer.payments.index', compact('payments'));
     }
+
 
     /**
      * 

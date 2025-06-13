@@ -1,0 +1,185 @@
+:root {
+    --primary-orange: #f97316;
+    /* Tailwind orange-500 */
+    --secondary-orange: #fb923c;
+    /* Tailwind orange-400 */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --glow-color: rgba(251, 146, 60, 0.5);
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    /* Accounts for navbar height (h-16 lg:h-20) */
+}
+
+/* Transparent Glassmorphism Navbar */
+.navbar {
+    background: var(--glass-bg);
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 16px var(--shadow-color);
+    transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    will-change: background, box-shadow;
+}
+
+/* Scroll-based opacity for readability */
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Fallback for no backdrop-filter support */
+@supports not (backdrop-filter: blur(10px)) {
+    .navbar {
+        background: rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Dropdown Transition */
+.dropdown-menu {
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        scale 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-8px) scale(0.95);
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-menu.show {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Mobile Menu Slide */
+#mobile-nav {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#mobile-nav.show {
+    transform: translateY(0);
+}
+
+/* Staggered animation for mobile menu items */
+#mobile-nav nav a,
+#mobile-nav nav form {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#mobile-nav.show nav a,
+#mobile-nav.show nav form {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#mobile-nav.show nav a:nth-child(1),
+#mobile-nav.show nav form:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+#mobile-nav.show nav a:nth-child(2),
+#mobile-nav.show nav form:nth-child(2) {
+    transition-delay: 0.15s;
+}
+
+#mobile-nav.show nav a:nth-child(3),
+#mobile-nav.show nav form:nth-child(3) {
+    transition-delay: 0.2s;
+}
+
+#mobile-nav.show nav a:nth-child(4),
+#mobile-nav.show nav form:nth-child(4) {
+    transition-delay: 0.25s;
+}
+
+#mobile-nav.show nav a:nth-child(5),
+#mobile-nav.show nav form:nth-child(5) {
+    transition-delay: 0.3s;
+}
+
+#mobile-nav.show nav form:nth-child(6) {
+    transition-delay: 0.35s;
+}
+
+/* Custom Scrollbar for Mobile Menu */
+#mobile-nav::-webkit-scrollbar {
+    width: 6px;
+}
+
+#mobile-nav::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+}
+
+#mobile-nav::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+        180deg,
+        var(--primary-orange),
+        var(--secondary-orange)
+    );
+    border-radius: 12px;
+}
+
+/* Cross-browser Scrollbar Fallback */
+@supports not (selector(::-webkit-scrollbar)) {
+    #mobile-nav {
+        scrollbar-color: var(--secondary-orange) rgba(255, 255, 255, 0.05);
+        scrollbar-width: thin;
+    }
+}
+
+/* Logo Styling */
+.logo-image {
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+    filter: drop-shadow(0 0 8px var(--glow-color));
+    animation: logo-glow 2.5s ease-in-out infinite;
+}
+
+.logo-image:hover {
+    transform: scale(1.15) translateY(-2px);
+    filter: drop-shadow(0 0 16px rgba(251, 146, 60, 0.8));
+}
+
+/* Logo Glow Animation */
+@keyframes logo-glow {
+    0%,
+    100% {
+        filter: drop-shadow(0 0 8px var(--glow-color));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 12px rgba(251, 146, 60, 0.7));
+    }
+}
+
+/* Respect Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+    .navbar,
+    .dropdown-menu,
+    #mobile-nav,
+    #mobile-nav nav a,
+    #mobile-nav nav form,
+    .logo-image {
+        transition: none;
+        transform: none;
+        animation: none;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}

@@ -4,13 +4,6 @@
 
 @section('content')
 
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 style="font-weight: 700;" class="h3 mb-0 text-gray-800">Dashboard Admin</h1>
-        <a href="{{ route('admin.layanan.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Layanan Baru
-        </a>
-    </div>
-
     <hr class="sidebar-divider my-0 mb-4">
 
     <div class="row">

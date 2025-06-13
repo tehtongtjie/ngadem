@@ -25,7 +25,7 @@
     <style>
         body {
             font-family: 'Figtree', sans-serif;
-            background: linear-gradient(135deg, #FFEDD5 0%, #FDD87F 50%, #FB923C 100%);
+            background: linear-gradient(135deg, #1F2937 0%, #111827 30%, #000000 60%, #F97316 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -126,7 +126,7 @@
         @include('layouts.customer.navbar')
 
         <!-- Main Content -->
-        <main class="container py-10">
+        <main class="container py-5">
             @yield('content') <!-- Konten dinamis halaman utama -->
         </main>
 

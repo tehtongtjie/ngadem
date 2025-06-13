@@ -13,11 +13,8 @@ use App\Http\Controllers\Admin\TeknisiController as AdminTeknisiController;
 use App\Http\Controllers\Admin\UlasanController as AdminUlasanController;
 
 use App\Http\Controllers\Teknisi\DashboardController as TeknisiDashboardController;
-use App\Http\Controllers\Teknisi\CustomerController as TeknisiCustomerController;
 use App\Http\Controllers\Teknisi\ServiceController as TeknisiServiceController;
 use App\Http\Controllers\Teknisi\OrderController as TeknisiOrderController;
-use App\Http\Controllers\Teknisi\JadwalController as TeknisiJadwalController;
-use App\Http\Controllers\Teknisi\RiwayatController as TeknisiRiwayatController;
 use App\Http\Controllers\Teknisi\PendapatanController as TeknisiPendapatanController;
 
 use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
@@ -69,8 +66,6 @@ Route::middleware(['auth', EnsureUserHasRole::class . ':teknisi'])
         Route::resource('orders', TeknisiOrderController::class)->except(['create', 'store']);
         Route::resource('customer', TeknisiCustomerController::class)->except(['create', 'store']);
         Route::resource('service', TeknisiServiceController::class)->except(['create', 'store']);
-        Route::resource('jadwal', TeknisiJadwalController::class)->only(['index', 'show', 'destroy']);
-        Route::resource('riwayat', TeknisiRiwayatController::class)->only(['index', 'show']);
         Route::resource('pendapatan', TeknisiPendapatanController::class)->only(['index']);
     });
 
