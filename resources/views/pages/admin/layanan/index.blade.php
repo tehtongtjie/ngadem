@@ -81,6 +81,10 @@
                         @endforelse
                     </tbody>
                 </table>
+                <!-- Pagination -->
+                <div class="d-flex justify-content-end mt-3">
+                    {{ $layanans->links('pagination::bootstrap-4') }}
+                </div>
             </div>
         </div>
     </div>

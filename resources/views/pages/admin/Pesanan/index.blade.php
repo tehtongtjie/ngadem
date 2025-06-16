@@ -4,12 +4,8 @@
 
 @section('content')
 
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Daftar Pesanan</h1>
-        {{-- Optional: Add a button for creating new orders if applicable --}}
-        {{-- <a href="{{ route('admin.pesanan.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Pesanan Baru
-        </a> --}}
+    <div style="font-weight: 700;" class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 style="font-weight: 700;" class="h3 mb-0 text-gray-800">Daftar Pesanan</h1>
     </div>
 
     @if (session('success'))

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\TeknisiController as AdminTeknisiController;
 use App\Http\Controllers\Admin\UlasanController as AdminUlasanController;
 
 use App\Http\Controllers\Teknisi\DashboardController as TeknisiDashboardController;
+use App\Http\Controllers\Teknisi\ProfileController as TeknisiProfileController;
 use App\Http\Controllers\Teknisi\ServiceController as TeknisiServiceController;
 use App\Http\Controllers\Teknisi\OrderController as TeknisiOrderController;
 use App\Http\Controllers\Teknisi\PendapatanController as TeknisiPendapatanController;
@@ -52,7 +53,7 @@ Route::middleware(['auth', EnsureUserHasRole::class . ':teknisi'])
     ->name('teknisi.')
     ->group(function () {
         Route::get('/dashboard', [TeknisiDashboardController::class, 'index'])->name('dashboard');
-
+        Route::resource('profile', TeknisiProfileController::class)->only(['index', 'edit', 'update']);
 
         Route::get('/orders/{order}/upload-report', [TeknisiOrderController::class, 'uploadReport'])->name('orders.upload_report');
         Route::post('/orders/{order}/upload-report', [TeknisiOrderController::class, 'storeReport'])->name('orders.store_report');
@@ -62,8 +63,8 @@ Route::middleware(['auth', EnsureUserHasRole::class . ':teknisi'])
         Route::get('/orders/pending', [TeknisiOrderController::class, 'pending'])->name('orders.pending');
         Route::get('/orders/declined', [TeknisiOrderController::class, 'declined'])->name('orders.declined');
         Route::get('/orders/history', [TeknisiOrderController::class, 'history'])->name('orders.history');
-
         Route::resource('orders', TeknisiOrderController::class)->except(['create', 'store']);
+
         Route::resource('customer', TeknisiCustomerController::class)->except(['create', 'store']);
         Route::resource('service', TeknisiServiceController::class)->except(['create', 'store']);
         Route::resource('pendapatan', TeknisiPendapatanController::class)->only(['index']);

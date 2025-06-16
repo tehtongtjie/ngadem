@@ -6,10 +6,6 @@
 
     <div style="font-weight: 700;" class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 style="font-weight: 700;" class="h3 mb-0 text-gray-800">Daftar Pembayaran</h1>
-        {{-- Optional: Add a button for adding new payments if applicable --}}
-        {{-- <a href="{{ route('admin.pembayaran.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Pembayaran Baru
-        </a> --}}
     </div>
 
     <div class="card shadow mb-4">

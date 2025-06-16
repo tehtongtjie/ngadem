@@ -75,7 +75,7 @@
 
     <div id="mobile-nav"
         class="fixed top-0 left-0 w-full bg-white shadow-2xl z-40 transform -translate-y-full transition-transform duration-500 ease-in-out lg:hidden rounded-b-xl overflow-y-auto max-h-screen">
-        <div class="flex justify-between items-center px-6 py-4 bg-orange-600 text-white">
+        <div class="flex justify-between items-center px-6 py-4 bg-black-600 text-white">
             <span class="text-lg font-bold">Menu</span>
             <button id="mobile-menu-close-button"
                 class="p-2 rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-white transition-colors duration-200"

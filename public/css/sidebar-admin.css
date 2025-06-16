@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    /* Sidebar link hover and active states */
+    .sidebar-nav-link {
+        @apply relative;
+    }
+
+    .sidebar-nav-link::after {
+        @apply content-[''] absolute left-0 top-0 h-full w-1 bg-orange-500 opacity-0 transition-opacity duration-200;
+    }
+
+    .sidebar-nav-link:hover::after,
+    .sidebar-nav-link.bg-orange-500::after {
+        @apply opacity-100;
+    }
+
+    /* Sidebar toggle button */
+    .sidebar-toggle {
+        @apply shadow-md hover:shadow-lg;
+    }
+
+    /* Tooltip styles */
+    [x-tooltip] {
+        @apply relative;
+    }
+
+    [x-tooltip]::after {
+        @apply content-[attr(x-tooltip-content)] absolute bg-gray-800 text-white text-xs rounded-md px-2 py-1 z-50 opacity-0 transition-opacity duration-200 pointer-events-none;
+        top: 50%;
+        left: calc(100% + 0.5rem);
+        transform: translateY(-50%);
+    }
+
+    [x-tooltip]:hover::after {
+        @apply opacity-100;
+    }
+}
+
+/* Gradient background */
+.sidebar {
+    background: linear-gradient(to bottom, #1f2937, #111827);
+}
+
+/* Smooth transitions */
+.sidebar-nav-link i,
+.sidebar-toggle i {
+    @apply transition-transform duration-200;
+}
+
+/* Dropdown animation */
+[x-show].translate {
+    @apply transition-all duration-300 ease-in-out;
+}
+
+/* Dark mode adjustments */
+.dark .sidebar {
+    @apply border-gray-800;
+}
+
+.dark .sidebar-nav-link:hover {
+    @apply bg-orange-600 text-white;
+}
+
+.dark .sidebar-toggle:hover {
+    @apply bg-orange-600;
+}

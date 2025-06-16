@@ -2,14 +2,10 @@
     style="background: linear-gradient(180deg, #2F2F2F 10%, #FF6F00 90%);">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}">
-        <div class="sidebar-brand-icon">
-            <img src="{{ asset('img/logo.png') }}" alt="Logo" style="max-height: 40px; width: auto;" />
-        </div>
-    </a>
+    <div class="sidebar-brand-icon d-flex align-items-center justify-content-center mt-3">
+        <img src="{{ asset('img/logo.png') }}" alt="Logo" class="img-fluid" style="max-height: 40px;" />
+    </div>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0" style="border-color: #A9A9A9;"> <!-- abu terang -->
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
