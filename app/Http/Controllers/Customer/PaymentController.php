@@ -19,7 +19,7 @@ class PaymentController extends Controller
     {
         $payments = Payment::whereHas('order', function ($query) {
             $query->where('user_id', auth()->id());
-        })->orderBy('created_at', 'desc')->paginate(10); // <-- Ganti get() jadi paginate()
+        })->orderBy('created_at', 'desc')->paginate(10);
 
         return view('pages.Customer.payments.index', compact('payments'));
     }
@@ -46,7 +46,7 @@ class PaymentController extends Controller
      *
      *
      *
-     * @param  \App\Models\Customer\Payment  $payment
+     * @param  \App\Models\Customer\Payment
      * @return \Illuminate\View\View
      */
     public function uploadProof(Payment $payment)

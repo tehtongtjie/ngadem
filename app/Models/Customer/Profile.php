@@ -9,5 +9,5 @@ class Profile extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id']; // Contoh
+    protected $guarded = ['id'];
 }

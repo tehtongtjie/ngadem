@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Customer; // PASTI App\Models\Customer
+namespace App\Models\Customer;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;             // User tetap di App\Models
-use App\Models\Customer\Service; // Service di App\Models\Customer
-use App\Models\Customer\Payment; // Payment di App\Models\Customer
+use App\Models\User;
+use App\Models\Customer\Service;
+use App\Models\Customer\Payment;
 
 class Order extends Model
 {

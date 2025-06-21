@@ -52,7 +52,6 @@ class ProfileController extends Controller
             'password' => 'nullable|min:8|confirmed',
         ]);
 
-        // Perbarui atribut user
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone; 

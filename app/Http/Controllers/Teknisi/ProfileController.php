@@ -14,25 +14,16 @@ use App\Models\User;
 class ProfileController extends Controller
 {
     /**
-     * Menampilkan halaman profil teknisi yang sedang login.
-     * Menggunakan Route Model Binding untuk resolusi otomatis model Teknisi.
+     *
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        // Temukan profil teknisi berdasarkan user_id yang sedang login
         $teknisi = Teknisi::where('user_id', Auth::id())->first();
-
-        // Jika profil teknisi tidak ditemukan, bisa diarahkan ke halaman pembuatan profil
         if (!$teknisi) {
-            // Atau Anda bisa return view 'create' jika Anda punya form pembuatan profil
-            // return view('pages.teknisi.profile.create');
             abort(404, 'Profil teknisi tidak ditemukan.');
         }
-
-        // Tampilan ini diharapkan ada di 'resources/views/pages/teknisi/profile/index.blade.php',
-        // dan akan menerima variabel $teknisi.
         return view('pages.teknisi.profile.index', compact('teknisi'));
     }
 
@@ -44,7 +35,7 @@ class ProfileController extends Controller
      */
     public function show()
     {
-        return $this->index(); // Memanggil metode index() untuk menghindari duplikasi kode
+        return $this->index();
     }
 
 
@@ -60,9 +51,6 @@ class ProfileController extends Controller
         if (!$teknisi) {
             abort(404, 'Profil teknisi tidak ditemukan.');
         }
-
-        // Tampilan ini diharapkan ada di 'resources/views/pages/teknisi/profile/edit.blade.php',
-        // dan akan menerima variabel $teknisi.
         return view('pages.teknisi.profile.edit', compact('teknisi'));
     }
 
@@ -77,9 +65,9 @@ class ProfileController extends Controller
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',
             'alamat'       => 'required|string',
-            'no_hp'        => 'required|string|max:20', // Batasi panjang no_hp
+            'no_hp'        => 'required|string|max:20',
             'keahlian'     => 'required|string|max:255',
-            'foto'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Maks 2MB
+            'foto'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $teknisi = Teknisi::where('user_id', Auth::id())->first();
@@ -88,20 +76,16 @@ class ProfileController extends Controller
             abort(404, 'Profil teknisi tidak ditemukan.');
         }
 
-        // Penanganan upload foto
         if ($request->hasFile('foto')) {
-            // Hapus foto lama jika ada
             if ($teknisi->foto && Storage::disk('public')->exists('foto/' . $teknisi->foto)) {
                 Storage::disk('public')->delete('foto/' . $teknisi->foto);
             }
 
-            // Simpan foto baru
             $fileName = time() . '.' . $request->foto->extension();
-            $request->file('foto')->storeAs('public/foto', $fileName); // Simpan ke public/foto
+            $request->file('foto')->storeAs('public/foto', $fileName);
             $teknisi->foto = $fileName;
         }
 
-        // Perbarui atribut teknisi
         $teknisi->nama_lengkap = $request->nama_lengkap;
         $teknisi->alamat       = $request->alamat;
         $teknisi->no_hp        = $request->no_hp;
