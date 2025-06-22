@@ -1,14 +1,15 @@
-```blade
-{{-- resources/views/pages/customer/services/index.blade.php --}}
-
 @extends('layouts.customer.app')
 
 @section('title', 'Layanan Kami - Ngadem')
 
 @section('content')
+    {{-- ========================== HEADER SPACER ========================== --}}
     <div id="header-spacer"></div>
 
+    {{-- ========================== MAIN CONTENT ========================== --}}
     <main class="container mx-auto px-4 py-10 md:py-12 lg:py-16">
+
+        {{-- ---------- PAGE HEADER ---------- --}}
         <header class="mb-10 text-center">
             <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-800">Layanan AC Profesional Kami</h1>
             <p class="mt-2 text-white/90 drop-shadow-600 max-w-3xl mx-auto text-sm md:text-base">
@@ -17,8 +18,9 @@
             </p>
         </header>
 
+        {{-- ---------- CONDITIONAL SECTION: JIKA TIDAK ADA LAYANAN ---------- --}}
         @if ($services->isEmpty())
-            {{-- No Services State --}}
+            {{-- EMPTY STATE --}}
             <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-6 md:p-8 rounded-xl shadow-lg max-w-2xl mx-auto text-center"
                 role="alert">
                 <i class="fas fa-info-circle text-4xl text-blue-500 mb-4"></i>
@@ -31,9 +33,11 @@
                 </a>
             </div>
         @else
-            {{-- Services Grid --}}
+        
+            {{-- ---------- SERVICES LIST (GRID) ---------- --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="services-grid">
                 @foreach ($services as $service)
+                    {{-- SINGLE SERVICE CARD --}}
                     <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden
                                 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ease-in-out"
                         data-name="{{ strtolower($service->nama_layanan) }}" data-price="{{ $service->harga_dasar }}">
@@ -61,8 +65,8 @@
             </div>
         @endif
     </main>
-
-    @push('scripts')
-    @endpush
 @endsection
-```
+
+{{-- ========================== SCRIPTS SECTION (optional) ========================== --}}
+@push('scripts')
+@endpush

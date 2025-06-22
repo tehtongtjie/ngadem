@@ -32,7 +32,7 @@
 
             <form action="{{ route('admin.customer.update', $customer->id) }}" method="POST">
                 @csrf
-                @method('PUT') {{-- Penting: gunakan metode PUT untuk update resource --}}
+                @method('PUT')
 
                 <div class="form-group">
                     <label for="name">Nama:</label>

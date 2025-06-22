@@ -1,5 +1,3 @@
-{{-- resources/views/pages/customer/orders/show.blade.php --}}
-
 @extends('layouts.customer.app')
 
 @section('title', 'Detail Pesanan #' . $order->id)
@@ -9,6 +7,8 @@
 
     <main class="container mx-auto px-4 py-8 md:py-16">
         <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+
+            {{-- ===================== HEADER ===================== --}}
             <header class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-6 md:p-8">
                 <h1 class="text-2xl md:text-3xl font-bold text-center">
                     Detail Pesanan <span class="font-extrabold">#{{ $order->id }}</span>
@@ -16,7 +16,8 @@
             </header>
 
             <div class="p-6 md:p-8 space-y-8">
-                {{-- Informasi Umum --}}
+
+                {{-- ===================== INFORMASI UMUM ===================== --}}
                 <section class="group">
                     <h2
                         class="text-lg md:text-xl font-semibold text-gray-800 mb-4 flex items-center transition-transform duration-300 group-hover:translate-x-1">
@@ -51,7 +52,7 @@
                     </div>
                 </section>
 
-                {{-- Detail Layanan --}}
+                {{-- ===================== DETAIL LAYANAN ===================== --}}
                 <section class="group">
                     <h2
                         class="text-lg md:text-xl font-semibold text-gray-800 mb-4 flex items-center transition-transform duration-300 group-hover:translate-x-1">
@@ -65,7 +66,7 @@
                     </div>
                 </section>
 
-                {{-- Informasi Alamat --}}
+                {{-- ===================== INFORMASI ALAMAT ===================== --}}
                 <section class="group">
                     <h2
                         class="text-lg md:text-xl font-semibold text-gray-800 mb-4 flex items-center transition-transform duration-300 group-hover:translate-x-1">
@@ -77,7 +78,7 @@
                     </div>
                 </section>
 
-                {{-- Deskripsi Masalah --}}
+                {{-- ===================== DESKRIPSI MASALAH ===================== --}}
                 <section class="group">
                     <h2
                         class="text-lg md:text-xl font-semibold text-gray-800 mb-4 flex items-center transition-transform duration-300 group-hover:translate-x-1">
@@ -88,7 +89,7 @@
                     </div>
                 </section>
 
-                {{-- Informasi Teknisi --}}
+                {{-- ===================== INFORMASI TEKNISI ===================== --}}
                 <section class="group">
                     <h2
                         class="text-lg md:text-xl font-semibold text-gray-800 mb-4 flex items-center transition-transform duration-300 group-hover:translate-x-1">
@@ -116,7 +117,7 @@
                     </div>
                 </section>
 
-                {{-- Action Buttons --}}
+                {{-- ===================== TOMBOL AKSI ===================== --}}
                 <div class="flex justify-center mt-10">
                     <a href="{{ route('customer.orders.index') }}"
                         class="inline-flex items-center px-6 py-3 bg-yellow-500 text-white font-semibold rounded-full

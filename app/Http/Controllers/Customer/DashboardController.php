@@ -15,16 +15,14 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
-        $latestOrders = Order::where('user_id', Auth::id())
-                              ->with(['service', 'teknisi']) 
-                              ->orderBy('created_at', 'desc')
-                              ->limit(3) 
-                              ->get();
+public function index()
+{
+    $latestOrders = Order::where('user_id', Auth::id())
+                          ->with(['service', 'teknisi']) 
+                          ->orderBy('created_at', 'desc')
+                          ->paginate(5);
+    $userName = Auth::user()->name ?? 'Pengguna';
 
-        $userName = Auth::user()->name ?? 'Pengguna';
-
-        return view('pages.customer.index', compact('latestOrders', 'userName'));
+    return view('pages.customer.index', compact('latestOrders', 'userName'));
     }
 }

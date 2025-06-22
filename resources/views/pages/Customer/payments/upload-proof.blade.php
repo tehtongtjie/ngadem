@@ -3,10 +3,15 @@
 @section('title', 'Unggah Bukti Pembayaran #' . $payment->id)
 
 @section('content')
+
+    {{-- ===================== HEADER SPACER ===================== --}}
     <div id="header-spacer" class="h-10 md:h-10"></div>
 
+    {{-- ===================== MAIN CONTAINER ===================== --}}
     <main class="container mx-auto px-4 py-8 md:py-12 lg:py-16">
         <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+
+            {{-- ---------- HEADER TITLE ---------- --}}
             <header class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-6 md:p-8">
                 <h1 class="text-2xl md:text-3xl font-bold text-center">
                     Unggah Bukti Pembayaran <span class="font-extrabold">#{{ $payment->id }}</span>
@@ -17,7 +22,10 @@
                 </p>
             </header>
 
+            {{-- ---------- FORM & ERROR SECTION ---------- --}}
             <div class="p-6 md:p-8 space-y-8">
+
+                {{-- ---------- ERROR MESSAGE ---------- --}}
                 @if ($errors->any())
                     <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-lg shadow-sm" role="alert">
                         <p class="font-semibold mb-2">Terjadi kesalahan:</p>
@@ -29,10 +37,12 @@
                     </div>
                 @endif
 
+                {{-- ---------- FORM UPLOAD ---------- --}}
                 <form action="{{ route('customer.payments.store-proof', $payment->id) }}" method="POST"
                     enctype="multipart/form-data" class="space-y-6" id="upload-form">
                     @csrf
 
+                    {{-- ---------- INPUT FILE ---------- --}}
                     <div>
                         <label for="bukti_pembayaran" class="block text-sm font-medium text-gray-700 mb-2">
                             Pilih File Bukti Pembayaran <span class="text-red-500">*</span>
@@ -47,6 +57,8 @@
                                 <p class="text-gray-600">Seret dan lepas gambar di sini atau klik untuk memilih file</p>
                                 <p class="text-xs text-gray-500 mt-1">Format: JPG, PNG, JPEG, GIF, SVG. Max: 2MB.</p>
                             </div>
+
+                            {{-- ---------- PREVIEW IMAGE ---------- --}}
                             <div id="preview" class="hidden mt-4 max-w-xs mx-auto">
                                 <img id="preview-image" src="" alt="Pratinjau Bukti Pembayaran"
                                     class="w-full h-auto rounded-lg shadow-md">
@@ -61,6 +73,7 @@
                         @enderror
                     </div>
 
+                    {{-- ---------- SUBMIT BUTTON ---------- --}}
                     <div class="flex justify-center mt-6">
                         <button type="submit"
                             class="w-full md:w-auto px-8 py-3 bg-yellow-600 text-white font-semibold rounded-full shadow-md
@@ -73,6 +86,7 @@
                     </div>
                 </form>
 
+                {{-- ---------- BACK TO DETAIL ---------- --}}
                 <div class="text-center mt-6">
                     <a href="{{ route('customer.payments.show', $payment->id) }}"
                         class="inline-flex items-center px-4 py-2 text-gray-600 hover:text-gray-800 font-semibold
@@ -80,11 +94,14 @@
                         <i class="fas fa-arrow-left mr-2"></i> Kembali ke Detail Pembayaran
                     </a>
                 </div>
+
             </div>
         </div>
     </main>
 
+    {{-- ===================== SCRIPT TAMBAHAN ===================== --}}
     @push('scripts')
         <script src="{{ asset('js/upload-proof-payment-customer.js') }}"></script>
     @endpush
+
 @endsection

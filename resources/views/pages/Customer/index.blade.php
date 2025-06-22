@@ -49,7 +49,7 @@
     </section>
 
 
-    {{-- Main Content Area --}}
+    {{-- Main Area --}}
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6 min-h-[600px] auto-rows-fr">
             {{-- Pesanan Terbaru (Latest Orders) --}}
@@ -121,7 +121,7 @@
                 </a>
             </section>
 
-            {{-- Aksi Cepat (Quick Actions) --}}
+            {{-- Aksi Cepat --}}
             <section class="glass-effect rounded-3xl p-6 flex flex-col items-center xl:col-span-3 xl:row-span-3"
                 data-aos="fade-up" data-aos-delay="200" data-aos-duration="800" role="region"
                 aria-labelledby="quick-actions">
@@ -151,7 +151,7 @@
                 </p>
             </section>
 
-            {{-- Tips Perawatan AC (AC Maintenance Tips) --}}
+            {{-- Tips Perawatan AC --}}
             <section class="glass-effect rounded-3xl p-6 xl:col-span-3 xl:row-span-2 xl:col-start-1 xl:row-start-4"
                 data-aos="fade-up" data-aos-delay="300" data-aos-duration="800" role="region"
                 aria-labelledby="maintenance-tips">
@@ -188,7 +188,7 @@
                 </ul>
             </section>
 
-            {{-- Mengapa Memilih Kami (Why Choose Us) --}}
+            {{-- Bagian Kenapa Memilih kami --}}
             <section
                 class="glass-effect rounded-3xl p-6 flex flex-col xl:col-span-2 xl:row-span-2 xl:col-start-4 xl:row-start-4"
                 data-aos="fade-up" data-aos-delay="400" data-aos-duration="800" role="region"
@@ -223,7 +223,7 @@
                         </p>
                     </div>
                 </div>
-                <p class="text-gray-700 text-sm mt-4 text-center">
+                <p class="text-white text-sm mt-4 text-center">
                     Kami memastikan AC Anda optimal dengan pelayanan terbaik.
                 </p>
             </section>

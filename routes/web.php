@@ -37,13 +37,11 @@ Route::middleware(['auth', EnsureUserHasRole::class . ':admin'])
     ->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-        Route::resource('laporan', AdminLaporanController::class);
         Route::resource('layanan', AdminLayananController::class);
         Route::resource('pembayaran', AdminPembayaranController::class);
         Route::resource('customer', AdminCustomerController::class)->except(['create', 'store']);
         Route::resource('pesanan', AdminPesananController::class)->except(['create', 'store', 'destroy']);
         Route::resource('teknisi', AdminTeknisiController::class);
-        Route::resource('ulasan', AdminUlasanController::class)->except(['create', 'store', 'edit', 'update']);
     });
 
 // ---
