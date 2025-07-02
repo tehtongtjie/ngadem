@@ -164,10 +164,17 @@
                                 'name' => 'Siti Aminah',
                                 'text' => 'Teknisi profesional dan harga transparan. Ngadem is the best!',
                             ],
-                            ['name' => 'Andi Wijaya', 'text' => 'Pembersihan AC sangat rapi, udara jadi segar!'],
-                            ['name' => 'Rina Lestari', 'text' => 'Instalasi AC baru dilakukan dengan presisi tinggi.'],
+                            [
+                                'name' => 'Andi Wijaya',
+                                'text' => 'Pembersihan AC sangat rapi, udara jadi segar!',
+                            ],
+                            [
+                                'name' => 'Rina Lestari',
+                                'text' => 'Instalasi AC baru dilakukan dengan presisi tinggi.',
+                            ],
                         ];
                     @endphp
+
 
                     @foreach ($testimonials as $testimonial)
                         <div class="carousel-slide">

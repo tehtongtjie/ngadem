@@ -14,7 +14,7 @@ class EnsureUserHasRole
     $user = $request->user();
 
     if (! $user) {
-        abort(403, 'Kamu Blom Login Bro.');
+        abort(403, 'Anda belum login.');
     }
 
     // Convert string $role ke enum UserRole
@@ -22,7 +22,7 @@ class EnsureUserHasRole
 
     // Bandingkan enum dengan enum
     if ($user->role !== $requiredRole) {
-        abort(403, 'Bro Malah Masuk Sini.');
+        abort(403, 'Anda tidak memiliki hak akses.');
     }
 
     return $next($request);

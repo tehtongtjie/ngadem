@@ -4,17 +4,17 @@
 
 @section('content')
 
-    {{-- ======================= HEADER SPACER ======================= --}}
+    {{--  HEADER SPACER  --}}
     <div id="header-spacer"></div>
 
-    {{-- ======================= PAGE HEADER ======================= --}}
+    {{--  PAGE HEADER  --}}
     <main class="container mx-auto px-4 py-8 md:py-16">
         <header class="mb-10 text-center">
             <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-800">Riwayat Pesanan Anda</h1>
             <p class="mt-2 text-white/90 drop-shadow-600">Lihat semua pesanan Anda di satu tempat</p>
         </header>
 
-        {{-- ======================= CONTENT WRAPPER ======================= --}}
+        {{--  CONTENT WRAPPER  --}}
         <main class="container mx-auto px-4 pt-0 pb-8 md:pt-4 md:pb-12 lg:pt-6 lg:pb-16">
 
             {{-- ---------- SESSION MESSAGES (Success/Error) ---------- --}}
@@ -32,7 +32,7 @@
                 </div>
             @endif
 
-            {{-- ======================= EMPTY STATE ======================= --}}
+            {{--  EMPTY STATE  --}}
             @if ($orders->isEmpty())
                 <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-6 md:p-8 rounded-xl shadow-lg max-w-2xl mx-auto text-center"
                     data-aos="fade-up" data-aos-duration="800" role="alert">
@@ -46,9 +46,9 @@
                     </a>
                 </div>
 
-                {{-- ======================= RIWAYAT ADA ======================= --}}
+                {{--  RIWAYAT ADA  --}}
             @else
-                {{-- ========== MOBILE VERSION (CARD LIST) ========== --}}
+                {{--  MOBILE VERSION (CARD LIST)  --}}
                 <div class="block lg:hidden space-y-4" data-aos="fade-up" data-aos-duration="800">
                     @foreach ($orders as $order)
                         <div
@@ -84,7 +84,7 @@
                     @endforeach
                 </div>
 
-                {{-- ========== DESKTOP VERSION (TABLE) ========== --}}
+                {{--  DESKTOP VERSION (TABLE)  --}}
                 <div class="hidden lg:block overflow-x-auto bg-white rounded-xl shadow-lg border border-gray-100"
                     data-aos="fade-up" data-aos-duration="800">
                     <table class="min-w-full text-left text-sm text-gray-700">
@@ -129,7 +129,7 @@
                     </table>
                 </div>
 
-                {{-- ========== PAGINATION ========== --}}
+                {{--  PAGINATION  --}}
                 @if ($orders->hasPages())
                     <div class="mt-8 flex justify-center">
                         {{ $orders->links('vendor.pagination.tailwind') }}
@@ -140,7 +140,7 @@
         </main>
     </main>
 
-    {{-- ======================= CUSTOM JS (Optional) ======================= --}}
+    {{--  CUSTOM JS (Optional)  --}}
     @push('scripts')
         {{-- <script src="{{ asset('js/index-orders-customer.js') }}"></script> --}}
     @endpush

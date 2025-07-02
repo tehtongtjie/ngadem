@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class ProfileController extends Controller
 {
     /**
-     * 
-     *
-     * @return \Illuminate\View\View
+     * Tampilkan halaman profil (overview)
      */
     public function index()
     {
@@ -22,9 +20,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * 
-     *
-     * @return \Illuminate\View\View
+     * Tampilkan form edit profil
      */
     public function edit()
     {
@@ -33,10 +29,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * 
-     *
-     * @param  \Illuminate\Http\Request
-     * @return \Illuminate\Http\RedirectResponse
+     * Proses update profil
      */
     public function update(Request $request)
     {
@@ -65,8 +58,20 @@ class ProfileController extends Controller
             $user->save();
             return redirect()->route('customer.profile.index')->with('success', 'Profil berhasil diperbarui!');
         } catch (\Exception $e) {
-            \Log::error('Error updating customer profile: ' . $e->getMessage(), ['user_id' => $user->id, 'request_data' => $request->all()]);
+            \Log::error('Error updating customer profile: ' . $e->getMessage(), [
+                'user_id' => $user->id,
+                'request_data' => $request->all()
+            ]);
             return redirect()->back()->with('error', 'Gagal memperbarui profil: ' . $e->getMessage())->withInput();
         }
+    }
+
+    /**
+     * Tampilkan profil spesifik berdasarkan ID
+     */
+    public function show($id)
+    {
+        $user = \App\Models\User::findOrFail($id); // ganti jika kamu pakai model Customer atau Teknisi
+        return view('pages.customer.profile.index', compact('user'));
     }
 }
