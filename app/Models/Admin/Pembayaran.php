@@ -45,6 +45,6 @@ class Pembayaran extends Model
 
     public function order()
     {
-        return $this->belongsTo(\App\Models\Order::class, 'order_id');
+        return $this->belongsTo(\App\Models\Customer\Order::class, 'order_id');
     }
 }

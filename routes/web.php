@@ -4,13 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\EnsureUserHasRole;
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\Admin\LaporanController as AdminLaporanController;
 use App\Http\Controllers\Admin\LayananController as AdminLayananController;
 use App\Http\Controllers\Admin\PembayaranController as AdminPembayaranController;
 use App\Http\Controllers\Admin\CustomerController as AdminCustomerController;
 use App\Http\Controllers\Admin\PesananController as AdminPesananController;
 use App\Http\Controllers\Admin\TeknisiController as AdminTeknisiController;
-use App\Http\Controllers\Admin\UlasanController as AdminUlasanController;
 
 use App\Http\Controllers\Teknisi\DashboardController as TeknisiDashboardController;
 use App\Http\Controllers\Teknisi\ProfileController as TeknisiProfileController;
@@ -23,7 +21,6 @@ use App\Http\Controllers\Customer\OrderController as CustomerOrderController;
 use App\Http\Controllers\Customer\ServiceController as CustomerServiceController;
 use App\Http\Controllers\Customer\PaymentController as CustomerPaymentController;
 use App\Http\Controllers\Customer\ProfileController as CustomerProfileController;
-use App\Http\Controllers\Customer\ReviewController as CustomerReviewController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,7 +33,6 @@ Route::middleware(['auth', EnsureUserHasRole::class . ':admin'])
     ->name('admin.')
     ->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-
         Route::resource('layanan', AdminLayananController::class);
         Route::resource('pembayaran', AdminPembayaranController::class);
         Route::resource('customer', AdminCustomerController::class)->except(['create', 'store']);
@@ -83,7 +79,6 @@ Route::middleware(['auth', EnsureUserHasRole::class . ':customer'])
         Route::post('/payments/{payment}/upload', [CustomerPaymentController::class, 'storeProof'])->name('payments.store-proof');
 
         Route::resource('profile', CustomerProfileController::class)->only(['index', 'show', 'edit', 'update']);
-        Route::resource('review', CustomerReviewController::class)->only(['index', 'show']);
     });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule; 
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
@@ -54,8 +54,8 @@ class ProfileController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->phone = $request->phone; 
-        $user->address = $request->address; 
+        $user->phone = $request->phone;
+        $user->address = $request->address;
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
@@ -68,5 +68,11 @@ class ProfileController extends Controller
             \Log::error('Error updating customer profile: ' . $e->getMessage(), ['user_id' => $user->id, 'request_data' => $request->all()]);
             return redirect()->back()->with('error', 'Gagal memperbarui profil: ' . $e->getMessage())->withInput();
         }
+    }
+
+    public function show($id)
+    {
+        $user = \App\Models\User::findOrFail($id);
+        return view('pages.customer.profile.index', compact('user'));
     }
 }

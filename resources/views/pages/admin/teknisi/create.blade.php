@@ -90,7 +90,7 @@
                 <div class="form-group">
                     <label for="spesialisasi">Spesialisasi:</label>
                     <input type="text" class="form-control @error('spesialisasi') is-invalid @enderror" id="spesialisasi"
-                        name="spesialisasi" value="{{ old('spesialisasi') }}">
+                        name="spesialisasi" {{--required--}} value="{{ old('spesialisasi') }}">
                     @error('spesialisasi')
                         <div class="invalid-feedback">
                             {{ $message }}
