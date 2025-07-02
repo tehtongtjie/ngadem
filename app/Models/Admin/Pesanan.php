@@ -3,6 +3,8 @@
 namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Customer\Service;
 
 class Pesanan extends Model
 {
