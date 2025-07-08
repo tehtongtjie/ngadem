@@ -24,6 +24,7 @@
                             <th>Nama</th>
                             <th>Email</th>
                             <th>Role</th>
+                            {{--<th>Spesialisasi</th>--}}
                             <th>Terdaftar</th>
                             <th>Aksi</th>
                         </tr>
@@ -48,6 +49,7 @@
                                 <td>{{ $teknisiItem->name }}</td>
                                 <td>{{ $teknisiItem->email }}</td>
                                 <td>{{ ucfirst($teknisiItem->role) }}</td>
+                                {{--<td>{{ $teknisiItem->detail->spesialisasi ?? '-' }}</td> --}}
                                 <td>{{ $teknisiItem->created_at->format('d M Y H:i') }}</td>
                                 <td>
                                     <a href="{{ route('admin.teknisi.show', $teknisiItem->id) }}"

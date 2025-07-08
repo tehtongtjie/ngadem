@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Customer\Service;
 
@@ -54,7 +55,7 @@ class LayananController extends Controller
         ]);
 
         return redirect()->route('admin.layanan.index')
-                         ->with('success', 'Layanan berhasil ditambahkan!');
+            ->with('success', 'Layanan berhasil ditambahkan!');
     }
 
     /**
@@ -76,7 +77,7 @@ class LayananController extends Controller
      * @param  \App\Models\Customer\Service 
      * @return \Illuminate\View\View
      */
-    public function edit(Service $layanan) 
+    public function edit(Service $layanan)
     {
         return view('pages.admin.layanan.edit', compact('layanan'));
     }
@@ -92,7 +93,7 @@ class LayananController extends Controller
     public function update(Request $request, Service $layanan)
     {
         $request->validate([
-            'nama_layanan' => 'required|string|max:255|unique:services,nama_layanan,' . $layanan->id, 
+            'nama_layanan' => 'required|string|max:255|unique:services,nama_layanan,' . $layanan->id,
             'deskripsi' => 'nullable|string',
             'harga_dasar' => 'required|numeric|min:0',
             'status' => 'required|in:aktif,nonaktif',
@@ -109,7 +110,7 @@ class LayananController extends Controller
             ]);
 
             return redirect()->route('admin.layanan.show', $layanan->id)
-                             ->with('success', 'Layanan berhasil diperbarui!');
+                ->with('success', 'Layanan berhasil diperbarui!');
         } catch (\Exception $e) {
             Log::error('Error updating layanan: ' . $e->getMessage(), ['layanan_id' => $layanan->id, 'request_data' => $request->all()]);
             return redirect()->back()->with('error', 'Gagal memperbarui layanan: ' . $e->getMessage())->withInput();
@@ -129,7 +130,7 @@ class LayananController extends Controller
         try {
             $layanan->delete();
             return redirect()->route('admin.layanan.index')
-                             ->with('success', 'Layanan berhasil dihapus!');
+                ->with('success', 'Layanan berhasil dihapus!');
         } catch (\Exception $e) {
             Log::error('Error deleting layanan: ' . $e->getMessage(), ['layanan_id' => $layanan->id]);
             return redirect()->back()->with('error', 'Gagal menghapus layanan: ' . $e->getMessage());

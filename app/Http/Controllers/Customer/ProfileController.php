@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule; 
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
@@ -47,8 +47,8 @@ class ProfileController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->phone = $request->phone; 
-        $user->address = $request->address; 
+        $user->phone = $request->phone;
+        $user->address = $request->address;
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
@@ -65,13 +65,6 @@ class ProfileController extends Controller
             return redirect()->back()->with('error', 'Gagal memperbarui profil: ' . $e->getMessage())->withInput();
         }
     }
-
-    /**
-     * Tampilkan profil spesifik berdasarkan ID
-     */
-    public function show($id)
-    {
-        $user = \App\Models\User::findOrFail($id); // ganti jika kamu pakai model Customer atau Teknisi
         return view('pages.customer.profile.index', compact('user'));
     }
 }
