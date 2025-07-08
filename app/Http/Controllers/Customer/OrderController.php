@@ -118,9 +118,7 @@ class OrderController extends Controller
     /**
      *
      *
-     * @param  \Illuminate\Http\Request 
-     * @param  \App\Models\Customer\Order
-     * @return \Illuminate\Http\RedirectResponse
+     * v
      */
     public function update(Request $request, Order $order)
     {
